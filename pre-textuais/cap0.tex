@@ -1,0 +1,212 @@
+% Atualizado para atender as normas ABNT por Mônica da Silva (04/11/2021)
+
+% --- -----------------------------------------------------------------
+% --- Elementos usados na Capa e na Folha de Rosto.
+% --- EXPRESSÔES ENTRE <> DEVERÂO SER COMPLETADAS COM A INFORMAÇÂO ESPECÍFICA DO TRABALHO
+% --- E OS SÌMBOLOS <> DEVEM SER RETIRADOS 
+% --- -----------------------------------------------------------------
+\autor{André Fernandes Gonçalves} % deve ser escrito em maiúsculo
+
+\titulo{Classificação de Alagamentos na Cidade do Rio de Janeiro através de Visão Computacional}
+
+\instituicao{UNIVERSIDADE FEDERAL FLUMINENSE}
+
+\orientador{Aura Conci}
+
+%\coorientador{<NOME DO COORIENTADOR>} % se nao existir co-orientador apague essa linha
+
+\local{NITER\'{O}I}
+
+\data{2025} % ano da defesa
+
+\comentario{Dissertação de Mestrado apresentada ao Programa de P\'{o}s-Gradua\c{c}\~{a}o em Computa\c{c}\~{a}o da \mbox{Universidade} Federal Fluminense como requisito parcial para a obten\c{c}\~{a}o do Grau de \mbox{Mestre em Computa\c{c}\~{a}o}. \'{A}rea de concentra\c{c}\~{a}o: \mbox{Computa\c{c}\~{a}o}} %preencha com a sua área de concentração
+
+
+% --- -----------------------------------------------------------------
+% --- Capa. (Capa externa, aquela com as letrinhas douradas)(Obrigatório)
+% --- ----------------------------------------------------------------
+\capa
+
+% --- -----------------------------------------------------------------
+% --- Folha de rosto. (Obrigatório)
+% --- ----------------------------------------------------------------
+\folhaderosto
+
+% --- -----------------------------------------------------------------
+% --- Ficha catalográfica obrigatória na versão final. (Obrigatório)
+% --- ----------------------------------------------------------------
+
+\begin{figure}[!ht]
+   \centering
+   \includegraphics[width=1\linewidth]{capitulos/figuras/ficha_catalografica.png}
+   \caption{Local da ficha catalográfica}
+\end{figure}
+
+\cleardoublepage
+
+
+\pagestyle{ruledheader}
+\setcounter{page}{1}
+\pagenumbering{roman}
+
+% --- -----------------------------------------------------------------
+% --- Termo de aprovação. (Obrigatório)
+% --- ----------------------------------------------------------------
+\cleardoublepage
+\thispagestyle{empty}
+
+\vspace{-60mm}
+
+\begin{center}
+   {\large ANDRÉ FERNANDES GONÇALVES}\\
+   \vspace{7mm}
+
+   \uppercase{Classificação de Alagamentos na Cidade do Rio de Janeiro através de Visão Computacional}\\
+  \vspace{10mm}
+\end{center}
+
+\noindent
+\begin{flushright}
+\begin{minipage}[t]{8cm}
+
+Dissertação de Mestrado apresentada ao Programa de P\'{o}s-Gradua\c{c}\~{a}o em Computa\c{c}\~{a}o da Universidade Federal Fluminense como requisito parcial para a obten\c{c}\~{a}o do \mbox{Grau} de Mestre em Computa\c{c}\~{a}o. \'{A}rea de concentra\c{c}\~{a}o: \mbox{Computa\c{c}\~{a}o} %preencha com a sua área de concentração
+
+\end{minipage}
+\end{flushright}
+\vspace{1.0 cm}
+\noindent
+Aprovada em <MES> de 2025. \\
+\begin{flushright}
+ % \parbox{11cm}
+  {
+  \begin{center}
+  BANCA EXAMINADORA \\
+  \vspace{6mm}
+  \rule{11cm}{.1mm} \\
+    Prof. Aura Conci - Orientadora, UFF \\
+    \vspace{6mm}
+  \rule{11cm}{.1mm} \\
+    Prof. Leandro Fernandes, UFF\\
+    \vspace{6mm}
+  \rule{11cm}{.1mm} \\
+    Prof. Flávia Bernandini, UFF\\
+  \vspace{4mm}
+  \rule{11cm}{.1mm} \\
+    Prof. Aristófanes, UFMA\\
+    \vspace{6mm}
+  \rule{11cm}{.1mm} \\
+    Prof. Raul Feitosa, PUC\\
+  \vspace{6mm}
+  \end{center}
+  }
+\end{flushright}
+\begin{center}
+  \vspace{4mm}
+  Niter\'{o}i \\
+  %\vspace{6mm}
+  2025
+
+\end{center}
+
+% --- -----------------------------------------------------------------
+% --- Dedicatoria.(Opcional)
+% --- -----------------------------------------------------------------
+\cleardoublepage
+\thispagestyle{empty}
+\vspace*{200mm}
+
+\begin{flushright}
+{\em 
+    Aos meus pais, que me apoiaram ao longo da minha jornada.
+}
+\end{flushright}
+\newpage
+
+
+% --- -----------------------------------------------------------------
+% --- Agradecimentos.(Opcional)
+% --- -----------------------------------------------------------------
+\pretextualchapter{Agradecimentos}
+\hspace{5mm}
+A minha orientadora, Aura Conci, que me ajudou em todo o caminho e sempre confiou em mim.
+
+A UFF e a CAPES, pela bolsa que me ajudou durante meus estudos do mestrado.
+
+A Luis Rezende e Otávio Flaeschen pela ajuda na criação do conjunto de dados.
+
+
+
+% --- -----------------------------------------------------------------
+% --- Resumo em português.(Obrigatório)
+% --- -----------------------------------------------------------------
+\begin{resumo}
+
+%Elemento obrigatório, constituído de uma sequência de frases concisas e objetivas e não de uma simples enumeração de tópicos, não ultrapassando 500 palavras ABNT NBR 6028:2003.
+
+Este trabalho teve como objetivo desenvolver uma abordagem inicial para a classificação automática de alagamentos da cidade do Rio de Janeiro.
+Para isso, este trabalho primeiramente criou um conjunto de dados original composto de 4620 separadas em 78\% para treino e 22\% para validação.
+Este conjunto de dados foi montado com imagens da própria cidade do Rio ao longo de diferentes meses, em diferentes horas do dia e em diferentes níveis de alagamento.
+Após o conjunto de dados ser devidamente analisado e montado de forma equilibrada, cinco arquiteturas de redes neurais foram avaliadas nesse conjunto de dados. 
+Essas arquiteturas foram escolhidas de acordo com trabalhos da literatura com temática relacionada ao problema abordado.
+Após o treinamento das arquiteturas \acrshort{vgg}-19, \textit{Inception}, \textit{DenseNet}, \textit{MobileNetV2}, e \textit{Visual Transformer} para o problema de classificação de imagem, 
+o \textit{Visual Transformer} obteve melhor resultado e também foi analisado com diferentes níveis de iluminação, três diferentes otimizadores além de investigar se o aumento 
+na quantidade de imagens de treino traria ganhos compensadores e validar o seu desempenho em outros dois conjuntos de dados.
+Ao final, o \textit{Visual Transformer} foi melhor modelo com com acurácia de 82,6\% no conjunto de dados original.
+
+\textbf{descrever o github junto com o conjunto de dados.}
+
+{\hspace{-8mm} \bf{Palavras-chave}}: Visão Computacional, Rede Neural Convolucional, \textit{Visual Transformer}, Classificação, Alagamento.
+
+\end{resumo}
+
+% --- -----------------------------------------------------------------
+% --- Resumo em língua estrangeira.(Obrigatório)
+% --- -----------------------------------------------------------------
+\begin{abstract}
+
+%Elemento obrigatório, em língua estrangeira, com as mesmas características do resumo em língua vernácula (ABNT, 2005).
+%O resumo deve ser redigido na terceira pessoa do singular, com verbo na voz ativa, não ultrapassando uma página ou 500 palavras, segundo a ABNT NBR 6028). Evitando-se ouso de parágrafos no meio do resumo, assim como fórmulas, equações e símbolos. Iniciar o resumo situando o trabalho no contexto geral, apresentar os objetivos, descrever a metodologia utilizada, relatar a contribuição própria, comentar os resultados obtidos e finalmente apresentaras conclusões mais importantes do trabalho.
+
+This study aimed to develop an initial approach for the automatic classification of flooding events in the city of Rio de Janeiro.  
+To achieve this, an original dataset was first created, consisting of 4,620 images, which were split into 78% for training and 22% for validation. This dataset was composed of images captured in different months, at various times of the day, and under different flooding levels within the city of Rio de Janeiro.  
+After ensuring that the dataset was properly analyzed and balanced, five neural network architectures were evaluated on this dataset. These architectures were selected based on related works in the literature that address similar classification problems.  
+Following the training of the \acrshort{vgg}-19, \textit{Inception}, \textit{DenseNet}, \textit{MobileNetV2}, and \textit{Visual Transformer} architectures for the image classification task, the \textit{Visual Transformer} achieved the best performance. Consequently, further analysis was conducted on this model, including evaluations under different lighting conditions, with three different optimizers, as well as an investigation into whether increasing the number of training images would yield significant improvements. Additionally, its performance was validated on two other datasets.  
+Ultimately, the \textit{Visual Transformer} emerged as the best-performing model, achieving an accuracy of 82.6% on the original dataset.
+
+{\hspace{-8mm} \bf{Keywords}}: Computer Vision, Convolutional Neural Network, \textit{Visual Transformer}, Classification, Flooding
+
+\end{abstract}
+
+% --- -----------------------------------------------------------------
+% --- Lista de figuras.(Opcional)
+% --- -----------------------------------------------------------------
+%\cleardoublepage
+\listoffigures
+
+
+
+% --- -----------------------------------------------------------------
+% --- Lista de tabelas.(Opcional)
+% --- -----------------------------------------------------------------
+\cleardoublepage
+%\label{pag:last_page_introduction}
+\listoftables
+\cleardoublepage
+
+% --- -----------------------------------------------------------------
+% --- Lista de abreviatura.(Opcional)
+%Elemento opcional, que consiste na relação alfabética das abreviaturas e siglas utilizadas no texto, seguidas das %palavras ou expressões correspondentes grafadas por extenso. Recomenda-se a elaboração de lista própria para cada %tipo (ABNT, 2005).
+% --- ----------------------------------------------------------------
+
+\cleardoublepage
+\printglossary[type=\acronymtype,title={Lista de Abreviaturas e Siglas}]
+\cleardoublepage
+
+
+% --- -----------------------------------------------------------------
+% --- Sumario.(Obrigatório)
+% --- -----------------------------------------------------------------
+
+\pagestyle{ruledheader}
+\tableofcontents
+\pagebreak

@@ -1,0 +1,39 @@
+\chapter{Conclusão}\label{cap:conclusoes}
+
+Com o objetivo de criar um modelo de classificação para classificar o estado de alagamento das ruas da cidade do Rio de Janeiro,
+esta pesquisa criou um conjunto de dados original de 4620 através de meses de captação e classificação de imagens da cidade do Rio.
+Com este conjunto de dados, foi realizada uma comparação entre as arquiteturas \acrshort{vgg}, \textit{Inception}, \textit{DenseNet}, \textit{MobileNet} e \Acrshort{vit} no problema de detecção de alagamentos
+para achar o melhor modelo entre arquiteturas selecionadas para alcançar o objetivo do trabalho.
+
+Os resultados mostraram que o \acrshort{vit} geralmente superou as outras arquiteturas com diferentes taxas de aprendizagem. 
+A alteração da intensidade luminosa da imagem teve impacto claro no desempenho do modelo e ajudou a diminuir a diferença da acurácia entre as imagens noturnas e diurnas, 
+em comparação aos resultados descritos em Piedad \textit{et al.} \cite{piedad2022}.
+
+O modelo que se destacou, usando \acrshort{sgd} como otimizador e com taxa de aprendizagem de 1e$^{-4}$ foi o melhor não só pelas suas métricas 
+mas pela sua maior estabilidade na curva de perda e pela menor discrepância entre acurácia de treino e validação.
+
+Todos os modelos foram treinados utilizando imagens capturadas pelo sistema de câmeras COR, onde o \acrshort{vit} obteve acurácia de 83\%. 
+Este trabalho também analisou o modelo obtido em outras fontes de dados, o modelo conseguiu acurácia de 73\% no conjunto de dados \acrshort{efd} \cite{BarzSchroeterMuench2018_1000117723}, 
+e de 74\% no conjunto de dados de Sazara \textit{et al.} \cite{sazara2019}.
+
+Ao abordar o complexo problema de classificar imagens de alagamento de uma cidade grande e diversa como o Rio de Janeiro, 
+este trabalho conseguiu alcançar seu objetivo de concluir uma abordagem inicial para a classificação automática da situação de alagamento de ruas, 
+através de um conjunto de dados original baseado na própria cidade do Rio.
+
+\section{Trabalhos futuros e considerações}
+
+A integração de diferentes conjuntos de dados ao treinamento do modelo pode impactar positivamente seu desempenho.
+Embora diferentes quantidades de tráfego tenham sido utilizadas no treinamento, outros eventos que podem ocorrer na rua ou ao seu redor, como manutenção das vias ou construções, 
+não foram incluídos no conjunto de dados de treinamento. 
+Portanto, essas situações poderiam ser classificadas incorretamente pelo modelo, e imagens desses eventos deveriam ser incluídas no conjunto de dados de treinamento.
+
+Apesar do otimizador \acrshort{sgd} inicialmente escolhido apresentar melhor desempenho, 
+os resultados com o \acrshort{nadam} mostram que mais estudos sobre a escolha de diferentes valores para os parâmetros do otimizador podem aprimorar o modelo atual.
+
+Além disso, alterações na arquitetura como a criação de novas camadas demonstrado em Agung \textit{et al.} \cite{agung2023}, 
+pode melhorar o desempenho do modelo uma vez que eles alcançaram uma precisão de 0,95 para o \textit{MobileNetV2}, 
+enquanto este trabalho alcançou uma precisão mais baixa de 0,78 com a mesma arquitetura.
+
+O uso de outros instrumentos de medição, como pluviômetros instalados por toda a cidade, pode ser usado para corroborar as classificações resultantes do modelo gerado. 
+No entanto, como o escopo da pesquisa foi o desenvolvimento de um modelo de classificação e algumas ruas não possuem sensores de nível de água, 
+esse tipo de análise foi deixada de lado para uma abordagem inicial.

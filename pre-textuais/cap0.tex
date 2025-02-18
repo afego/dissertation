@@ -134,7 +134,7 @@ A UFF e a CAPES, pela bolsa que me ajudou durante meus estudos do mestrado.
 
 A Luis Rezende e Otávio Flaeschen pela ajuda na criação do conjunto de dados.
 
-
+Ao Centro de Operações do Rio pelo acesso as câmeras da cidade do Rio de Janeiro.
 
 % --- -----------------------------------------------------------------
 % --- Resumo em português.(Obrigatório)
@@ -144,16 +144,16 @@ A Luis Rezende e Otávio Flaeschen pela ajuda na criação do conjunto de dados.
 %Elemento obrigatório, constituído de uma sequência de frases concisas e objetivas e não de uma simples enumeração de tópicos, não ultrapassando 500 palavras ABNT NBR 6028:2003.
 
 Este trabalho teve como objetivo desenvolver uma abordagem inicial para a classificação automática de alagamentos da cidade do Rio de Janeiro.
-Para isso, este trabalho primeiramente criou um conjunto de dados original composto de 4620 separadas em 78\% para treino e 22\% para validação.
-Este conjunto de dados foi montado com imagens da própria cidade do Rio ao longo de diferentes meses, em diferentes horas do dia e em diferentes níveis de alagamento.
+Para isso, este trabalho primeiramente criou um conjunto de dados original composto de 4620 imagens separadas em 78\% para treino e 22\% para validação.
+Este conjunto de dados foi montado com imagens de câmeras de ruas da cidade do Rio ao longo de diferentes meses, em diferentes horas do dia e em diferentes níveis de alagamento.
 Após o conjunto de dados ser devidamente analisado e montado de forma equilibrada, cinco arquiteturas de redes neurais foram avaliadas nesse conjunto de dados. 
 Essas arquiteturas foram escolhidas de acordo com trabalhos da literatura com temática relacionada ao problema abordado.
 Após o treinamento das arquiteturas \acrshort{vgg}-19, \textit{Inception}, \textit{DenseNet}, \textit{MobileNetV2}, e \textit{Visual Transformer} para o problema de classificação de imagem, 
-o \textit{Visual Transformer} obteve melhor resultado e também foi analisado com diferentes níveis de iluminação, três diferentes otimizadores além de investigar se o aumento 
-na quantidade de imagens de treino traria ganhos compensadores e validar o seu desempenho em outros dois conjuntos de dados.
+o \textit{Visual Transformer} obteve melhor resultado e também foi analisado com diferentes níveis de iluminação e três diferentes otimizadores.
+Também foi investigado se o aumento na quantidade de imagens de treino traria ganhos compensadores. 
+O desempenho dos resultados foi comparado com outros dois conjuntos de dados.
 Ao final, o \textit{Visual Transformer} foi melhor modelo com com acurácia de 82,6\% no conjunto de dados original.
-
-\textbf{descrever o github junto com o conjunto de dados.}
+O código usado para treino e avaliação dos modelos, assim como o conjunto de dados original criado estão disponíveis \href{https://github.com/afego/computervision}{neste repositório de GitHub}.
 
 {\hspace{-8mm} \bf{Palavras-chave}}: Visão Computacional, Rede Neural Convolucional, \textit{Visual Transformer}, Classificação, Alagamento.
 
@@ -167,11 +167,17 @@ Ao final, o \textit{Visual Transformer} foi melhor modelo com com acurácia de 8
 %Elemento obrigatório, em língua estrangeira, com as mesmas características do resumo em língua vernácula (ABNT, 2005).
 %O resumo deve ser redigido na terceira pessoa do singular, com verbo na voz ativa, não ultrapassando uma página ou 500 palavras, segundo a ABNT NBR 6028). Evitando-se ouso de parágrafos no meio do resumo, assim como fórmulas, equações e símbolos. Iniciar o resumo situando o trabalho no contexto geral, apresentar os objetivos, descrever a metodologia utilizada, relatar a contribuição própria, comentar os resultados obtidos e finalmente apresentaras conclusões mais importantes do trabalho.
 
-This study aimed to develop an initial approach for the automatic classification of flooding events in the city of Rio de Janeiro.  
-To achieve this, an original dataset was first created, consisting of 4,620 images, which were split into 78% for training and 22% for validation. This dataset was composed of images captured in different months, at various times of the day, and under different flooding levels within the city of Rio de Janeiro.  
-After ensuring that the dataset was properly analyzed and balanced, five neural network architectures were evaluated on this dataset. These architectures were selected based on related works in the literature that address similar classification problems.  
-Following the training of the \acrshort{vgg}-19, \textit{Inception}, \textit{DenseNet}, \textit{MobileNetV2}, and \textit{Visual Transformer} architectures for the image classification task, the \textit{Visual Transformer} achieved the best performance. Consequently, further analysis was conducted on this model, including evaluations under different lighting conditions, with three different optimizers, as well as an investigation into whether increasing the number of training images would yield significant improvements. Additionally, its performance was validated on two other datasets.  
-Ultimately, the \textit{Visual Transformer} emerged as the best-performing model, achieving an accuracy of 82.6% on the original dataset.
+This work aimed to develop an initial approach for the automatic classification of floods in the city of Rio de Janeiro.
+To this end, this work first created an original dataset composed of 4620 images separated into 78\% for training and 22\% for validation.
+This dataset was assembled with images from street cameras in the city of Rio over different months, at different times of the day and at different flood levels.
+After the dataset was properly analyzed and assembled in a balanced way, five neural network architectures were evaluated on this dataset.
+These architectures were chosen according to works in the literature with a theme related to the problem addressed.
+After training the \acrshort{vgg}-19, \textit{Inception}, \textit{DenseNet}, \textit{MobileNetV2}, and \textit{Visual Transformer} architectures for the image classification problem,
+the \textit{Visual Transformer} obtained the best result and was also analyzed with different lighting levels and three different optimizers.
+It was also investigated whether increasing the number of training images would bring compensating gains.
+The performance of the results was compared with two other datasets.
+In the end, the \textit{Visual Transformer} was the best model with an accuracy of 82.6\% on the original dataset.
+The code used for training and evaluating the models, as well as the original dataset created are available \href{https://github.com/afego/computervision}{in this GitHub repository}.
 
 {\hspace{-8mm} \bf{Keywords}}: Computer Vision, Convolutional Neural Network, \textit{Visual Transformer}, Classification, Flooding
 

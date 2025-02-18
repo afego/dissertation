@@ -1,51 +1,83 @@
 \chapter{Fundamentação Teórica}\label{cap:fundamentação}
 
-Este capítulo explica de forma breve os conceitos necessários para entender todas as ferramentas e arquiteturas de \acrshort{cnn}s usadas no capítulo \ref{cap:metodologia}. Para isso, o capítulo é dividido em duas sessões, onde a primeira se baseia em conceitos de processamento de imagem. Já a segunda sessão é dedicada exclusivamente para redes neurais convolucionais e as arquiteturas utilizadas.
-%\textit{\textbf{Andre}  como nos capitulos anteriores inclua um pequeno texto antes de iniciar as divisoes do capitulo em seções. Mudei a ordem e fiz pequenas correções, pois nem tudo estava bem correto no seu texto!}
+Este capítulo explica de forma breve os conceitos necessários para entender todas as ferramentas usadas no capítulo \ref{cap:metodologia}. 
+Para isso, o capítulo é dividido em duas sessões, onde a primeira se baseia em conceitos de processamento de imagem. Já a segunda sessão é dedicada exclusivamente para redes neurais convolucionais e as arquiteturas utilizadas.
 
 \section{Técnicas de Processamento de Imagens}
 
+Este trabalho foi desenvolvido em Python, utilizando a biblioteca \textit{Pillow} para manipular imagens.
+As equações que definem as conversões entre espaços são descritas de acordo com a documentação do \textit{Pillow}\cite{clark2015pillow}.
 \subsection{Espaço de Cores}
 Uma imagem colorida é composta por uma ou mais bandas. 
 Usualmente, uma imagem digital em cores é composta por três bandas monocromáticas, onde cada banda armazena uma informação diferente da imagem colorida no pixel p(m,n) da banda. 
-Existem espaços diferentes de representação de cores, sendo o mais comum o RGB  CIE (sigla para \textit{Commission internationale de l'éclairage}) de 1931, 
-ou simplesmente RGB (do inglês \textit{Red, Green and Blue}). 
-Neste espaço cada cor aparece em seu componente espectral primário correspondente a essas cores, de modo que cada banda armazena unicamente a informação da intensidade do vermelho, verde e azul respectivamente \cite{gonzalez, jaelim}. 
 
 Cada banda (ou canal), de largura M pixels e altura N pixels, pode ser considerada como um plano onde um pixel está relacionado a um par de coordenadas inteiras p(m,n) pertencente à banda. 
 O valor armazenado na posição m,n no plano indica a intensidade da banda na imagem naquele ponto, usualmente com 256 possíveis valores diferentes de serem armazenados em um byte. 
 Onde 0 é a intensidade mais escura e 255 a intensidade mais clara \cite{jaelim, shapiro}.
 
-O espaço de cores XYZ-CIE 1931 (XYZ) foi projetado para pode representar todas as cores viziveis, mesmo as que não são representaveis no RGB. As componentes X e Z são elementos sem visibilidade aos olhos humanos, portanto, não existem na práticas como cores \cite{ohta}. O componente Y em si representa a luminância ou a melhor representação monocromática possível da cena originalmente colorida.
+Existem espaços diferentes de representação de cores, sendo o mais comum o RGB CIE (sigla para \textit{Commission internationale de l'éclairage}) de 1931, 
+ou simplesmente RGB (do inglês \textit{Red, Green and Blue}). 
+Neste espaço cada cor aparece em seu componente espectral primário correspondente a essas cores, de modo que cada banda armazena unicamente a informação da intensidade do vermelho, verde e azul respectivamente \cite{gonzalez, jaelim}. 
+O espaço de cores XYZ-CIE 1931 (XYZ) foi projetado para representar todas as cores visíveis, mesmo as que não são representáveis no RGB. 
+As componentes X e Z são elementos sem visibilidade aos olhos humanos, portanto, não existem na práticas como cores \cite{ohta}. 
+O componente Y representa a luminância ou a melhor representação monocromática possível da cena originalmente colorida.
 % -----------------------
-%\textit{\textbf{Andre}  essa divisão de  seções não faz o menor sentido ja que não havera outra conversão no seu texto!}
 
-\subsection{Conversão de RGB para YCrCb}
-% https://docs.opencv.org/4.6.0/de/d25/imgproc_color_conversions.html
-Este trabalho foi desenvolvido em Python, utilizando a biblioteca OpenCV (do inglês \textit{Open Source Computer Vision Library}). As equações que definem as conversões entre espaços são descritas de acordo com a documentação do OpenCV\cite{cvcolorconversion}.
-Nesta conversão não há nenhum tipo de alteração nos valores dos pixels em R G B antes de convertê-los para pixels em Y Cr Cb.
+\subsection{Conversões entre RGB e YCbCr}
+% https://github.com/python-pillow/Pillow/blob/61a35f94cf8a217db3e67d32db943b05e593e781/src/libImaging/ConvertYCbCr.c#L17-L21
+
+Nestas conversões não há nenhum tipo de alteração nos valores dos pixels no espaço de cor original antes de convertê-los para pixels no espaço de cor desejado.
+As equações \ref{eqn:ycrcb_y}, \ref{eqn:ycrcb_cb} e \ref{eqn:ycrcb_cr} mostram a conversão do espaço RGB para YCbCr.
+Já as equações \ref{eqn:rgb_r}, \ref{eqn:rgb_g} e \ref{eqn:rgb_b} mostram a conversão do espaço YCbCr para RGB.
+
 \begin{equation}
     \label{eqn:ycrcb_y}
-    Y \xleftarrow{} 0,299\cdot R + 0,597\cdot G + 0,114\cdot B
+    Y \xleftarrow{} R \cdot 0,29900 + G \cdot 0,58700 + B \cdot 0,11400
 \end{equation}
 \begin{equation}
     \label{eqn:ycrcb_cb}
-    Cb \xleftarrow{} (B-Y)\cdot 0,564 + delta
+    Cb \xleftarrow{} R \cdot -0,16874 + G \cdot -0,33126 + B \cdot 0,50000 + 128
 \end{equation}
 \begin{equation}
     \label{eqn:ycrcb_cr}
-    Cr \xleftarrow{} (R-Y)\cdot 0,713 + delta
+    Cr \xleftarrow{} R \cdot 0,50000 + G \cdot -0,41869 + B \cdot - 0,08131 + 128
 \end{equation}
-onde
+
 \begin{equation}
-    \label{eqn:ycrcb_delta}
-    delta \xleftarrow{}
-    \begin{cases}
-    128 & \text{para imagens de 8 bits por canal}\\
-    32768 & \text{para imagens de 16 bits por canal}\\
-    0,5 & \text{para imagens normalizadas entre 0 e 1}
-    \end{cases}
+    \label{eqn:rgb_r}
+    R \xleftarrow{} Y + (Cr - 128) \cdot 1.40200
 \end{equation}
+\begin{equation}
+    \label{eqn:rgb_g}
+    G \xleftarrow{} Y + (Cb - 128) \cdot -0,34414 + (Cr - 128) \cdot -0,71414
+\end{equation}
+\begin{equation}
+    \label{eqn:rgb_b}
+    B \xleftarrow{} Y + (Cb - 128) \cdot 1,77200
+\end{equation}
+
+% \begin{equation}
+%     \label{eqn:ycrcb_y}
+%     Y \xleftarrow{} 0,299\cdot R + 0,597\cdot G + 0,114\cdot B
+% \end{equation}
+% \begin{equation}
+%     \label{eqn:ycrcb_cb}
+%     Cb \xleftarrow{} (B-Y)\cdot 0,564 + delta
+% \end{equation}
+% \begin{equation}
+%     \label{eqn:ycrcb_cr}
+%     Cr \xleftarrow{} (R-Y)\cdot 0,713 + delta
+% \end{equation}
+% onde
+% \begin{equation}
+%     \label{eqn:ycrcb_delta}
+%     delta \xleftarrow{}
+%     \begin{cases}
+%     128 & \text{para imagens de 8 bits por canal}\\
+%     32768 & \text{para imagens de 16 bits por canal}\\
+%     0,5 & \text{para imagens normalizadas entre 0 e 1}
+%     \end{cases}
+% \end{equation}
 
 % -----------------------
 \subsection{Transformações de Intensidade no Domínio Espacial}
@@ -56,8 +88,8 @@ Essas funções podem ser representadas pela expressão:
     \label{eqn:intensitytransformation}
     g(x,y) = T\left [ f(x,y) \right ]
 \end{equation}
+onde \textit{f(x,y)} é a imagem de entrada, \textit{g(x,y)} é a imagem de saída e \textit{T} é uma função definida sobre um ponto \textit{x,y} ou sua vizinhança.
 
-Onde \textit{f(x,y)} é a imagem de entrada, \textit{g(x,y)} é a imagem de saída e \textit{T} é uma função definida sobre um ponto \textit{x,y} ou sua vizinhança.
 Uma das transformações de intensidade mais simples é a transformação linear, onde os valores de intensidade de um canal são multiplicados por uma constante, como representado pela equação:
 \begin{equation}
     \label{eqn:linearintensitytransformation}
@@ -67,10 +99,10 @@ Uma das transformações de intensidade mais simples é a transformação linear
 Através da equação \ref{eqn:linearintensitytransformation}, a intensidade \textit{i} de um pixel é multiplicada pelo fator de escala $\alpha$, resultando na nova intensidade  $i^{'}$.
 
 % -----------------------
-\subsection{Filtros}
+\subsection{Filtragem por convolução}
 
-Também chamados de máscaras ou kernels, filtros são matrizes de tamanho $m \times n$ aplicadas sobre uma imagem onde suas dimensões e valores que a compõem variam dependendo da característica
-a ser extraída de cada vizinhança $m \times n$ da imagem, como detecção de bordas ou texturas \cite{shapiro}.
+Também chamados de máscaras ou kernels, filtros são matrizes de tamanho $m \times n$ aplicadas sobre uma imagem através de multiplicações pelos valores das máscaras e somas, cujos resultados serão os valores da imagem processada.
+Suas dimensões e valores que a compõem variam dependendo da característica a ser extraída de cada vizinhança $m \times n$ da imagem, como detecção de bordas ou texturas \cite{shapiro}.
 % ----------------------------------------------------------
 \section{Redes Neurais Convolucionais}
 
@@ -80,15 +112,16 @@ Inspiradas pela organização do córtex visual dos mamíferos \cite{hubel1962},
 %capturar hierarquicamente características espaciais e visuais em imagens, permitindo a extração e o aprendizado de feições cada vez mais abstratas e de alto nível. Nesta seção, abordaremos os fundamentos das CNNs, incluindo suas principais camadas, funcionamento e aplicações em análise de imagens.
 extrair características locais que dependem de uma pequena vizinhança na imagem, onde estas pequenas características podem ser usadas por outras camadas para detectar características de maior ordem e extrair informações sobre a imagem \cite{book:Bishop}. 
 
-\acrshort{cnn}s são usadas principalmente para tarefas que trabalham em imagens, como reconhecimento de objetos, segmentação de imagens e detecção de padrões complexos em dados visuais.
+\acrshort{cnn}s são usadas principalmente para tarefas que trabalham em imagens, como reconhecimento de objetos, segmentação de imagens e detecção de padrões complexos de dados visuais.
 
 O aprendizado de características locais permite que a \acrshort{cnn} reconheça esses padrões em qualquer outro local da imagem,  tornando-a invariante a translação. A utilização de características de uma camada por camadas sucessivas permite que a \acrshort{cnn} aprenda padrões espaciais hierárquicos \cite{book:Chollet}.
 
 % -----------------------
 \subsection{Arquitetura de uma Rede Neural Convolucional}
 
-A arquitetura básica de uma CNN inclui três tipos principais de camadas: convolucional, de pooling e totalmente conectada. Uma CNN típica é formada por pares de camadas de convolução e de pooling empilhadas, que ao final são ligadas a uma camada totalmente conectada.
-A Figura \ref{fig:cnn_arch} mostra uma arquitetura genérica de uma CNN. 
+A arquitetura básica de uma \acrshort{cnn} inclui três tipos principais de camadas: convolucional, de pooling e totalmente conectada. 
+Uma \acrshort{cnn} típica é formada por pares de camadas de convolução e de pooling empilhadas, que ao final são ligadas a uma camada totalmente conectada.
+A Figura \ref{fig:cnn_arch} mostra uma arquitetura genérica de \acrshort{cnn}. 
 
 \begin{figure}[htb]
 \centerline{\includegraphics[width=1\linewidth]{images/cnn_placeholder.jpg}}
@@ -99,7 +132,7 @@ A Figura \ref{fig:cnn_arch} mostra uma arquitetura genérica de uma CNN.
 % -----------------------
 \subsubsection{Camada Convolucional}
 
-A camada convolucional é o núcleo de uma CNN e é responsável pela extração de características. 
+A camada convolucional é o núcleo de uma \acrshort{cnn} e é responsável pela extração de características. 
 Para isso pesos na forma de kernels, ou filtros da Análise de Imagem tradicional, 
 são aplicados sobre a imagem, onde são escorregados e multiplicados pelos valores dos pixels da imagem de entrada e somados resultando em um pixel para cada kernel, 
 usando uma quantidade definida de passos. Esse processo gera os mapas de características, onde cada mapa representa a resposta de um filtro específico a uma região da imagem de entrada. 
@@ -111,7 +144,7 @@ A operação de convolução S entre um filtro I e uma entrada K pode ser repres
     \label{eqn:convolution}
     S(x,y) = \sum_{m}\sum_{n}I(x+m,y+n)K(m,n)
 \end{equation}
-onde S(x,y) é o mapa de características gerado (saida), I(x,y) representa a entrada local (imagem original) e K(m,n) o filtro aplicado.
+onde S(x,y) é o mapa de características gerado (saida), I(x,y) representa a entrada local (imagem original) e K(m,n) o kernel aplicado.
 % -----------------------
 \subsubsection{Camada de Pooling}
 
@@ -130,7 +163,7 @@ O seu aprendizado é feito por um algoritmo de retro-propagação de erro \cite{
 % -----------------------
 \subsection{Processo de Treinamento de uma CNN}
 
-O treinamento de uma CNN é realizado por meio de aprendizado supervisionado, onde o modelo ajusta os pesos e vieses das camadas convolucionais (totalmente conectadas) para minimizar a diferença entre as previsões e os rótulos verdadeiros.
+O treinamento de uma \acrshort{cnn} é realizado por meio de aprendizado supervisionado, onde o modelo ajusta os pesos e vieses das camadas convolucionais (totalmente conectadas) para minimizar a diferença entre as previsões e os rótulos verdadeiros.
 
 A função de perda, que calcula o erro da rede, é derivada e propagada para ajustar os pesos de forma iterativa. 
 Este trabalho utilizou a Entropia Cruzada como função de perda, que é definida por:
@@ -154,14 +187,16 @@ onde $\omega$ é o peso sendo usado, $\tau$ é o número da iteração, $\eta$ �
 
 % -----------------------
 \subsection{Aprendizado por Transferência}
-
-Uma possibilidade importante nas CNNs é o uso de redes pré-treinadas e aprendizado por transferência (\textit{transfer learning)}, 
+% IBM, Wikipedia e UFSC referenciam por 'Aprendizado por transferência', AWS e UFRJ referenciam por 'Transferência por aprendizado'
+Uma possibilidade importante nas \acrshort{cnn}s é o uso de redes pré-treinadas e aprendizado por transferência (\textit{transfer learning}), 
 onde os pesos dos modelos pré-treinados em grandes conjuntos de dados são aproveitados e ajustados para problemas específicos com menos dados, 
 reduzindo o tempo de treinamento e melhorando a precisão em aplicações com conjuntos de dados menores. 
 Neste trabalho, o aprendizado por transferência baseado no IMAGENET \cite{deng2009imagenet} foi aplicado em todos os modelos avaliados, alterando sua última camada para uma classificação binária.
 % -----------------------
 \subsection{Visual Geometry Group (VGG)}
-É uma família de \acrshort{cnn}s que possuem arquiteturas simples. Propostas por \cite{vgg}, as \acrshort{vgg}s são compostas por blocos uniformes empilhados de duas camadas convolucionais e uma camada de \textit{pooling}. As camadas de \textit{pooling} têm tamanho 2x2 para reduzir a dimensionalidade da convolução pela metade. 
+A \acrshort{vgg} é uma família de \acrshort{cnn}s que possuem arquiteturas simples. 
+Propostas por \cite{vgg}, as \acrshort{vgg}s são compostas por blocos uniformes empilhados com duas camadas convolucionais e uma camada de \textit{pooling}. 
+As camadas de \textit{pooling} têm tamanho 2x2 reduzindo a dimensionalidade da convolução pela metade. 
 
 Já as camadas convolucionais compartilham do mesmo tamanho de filtro, sendo estes 3x3. Além disso, cada bloco dobra a quantidade de filtros de suas camadas convolucionais em relação ao bloco anterior. Por exemplo, o primeiro bloco de uma rede \acrshort{vgg} possui 64 filtros 3x3 em suas camada convolucionais, enquanto o segundo bloco possui 128 filtros 3x3.
 

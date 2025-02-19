@@ -71,7 +71,7 @@ Portanto, o \acrshort{vit} foi escolhido como o modelo a ser utilizado na contin
 Após a escolha da arquitetura de melhor depesempenho, outras análises devem ser feitas para saber se é possível melhorar seus resultados e o quão adequado foi seu treinamento.
 
 \subsection{Diminuição da intensidade luminosa}
-Após a escolha da arquitetura de melhor desempenho, diferentes valores para nesta dissertação denomidado de fator de claridade (\textit{FC}), conforme mencionado em \ref{subsec:datapreprocessing}, foram avaliados usando o \acrshort{vit}, a fim de analisar se o modelo poderia ser aprimorado, levando em consideração o claridade excessivo em algumas imagens.
+Após a escolha da arquitetura de melhor desempenho, diferentes valores para nesta dissertação denomidado de fator de claridade (\textit{FC}), conforme mencionado em \ref{subsec:datapreprocessing}, foram avaliados usando o \acrshort{vit}, a fim de analisar se o modelo poderia ser aprimorado, levando em consideração a claridade excessiva em algumas imagens.
 
 A Tabela \ref{tab:brightnessfactor} mostra o desempenho do \acrshort{vit} com quatro valores diferentes para \textit{FC}, onde o valor 1 para \textit{FC} significa que a intensidade luminosa da imagem não foi alterada, ou seja a quantidade de regiões com pixeis na cor branca permanece a original. 
 Reduzir o \textit{FC} melhorou gradualmente o desempenho do modelo, porém um \textit{FC} muito baixo impactou negativamente o modelo, como mostram os resultados com \textit{FC} igual a 0,25. Reduzir o \textit{FC} para 0,75 melhorou os resultados marginalmente, no entanto, a escolha inicial de 0,5 mostrou-se a melhor entre os valores testados.
@@ -292,7 +292,7 @@ Noturno                                                  & 0,758    & 0,800    &
 Em contraste com os resultados apresentados e descritos no capítulo \ref{cap:trabalhos}, 
 onde o modelo apresentou resultados substancialmente melhores em imagens diurnas em comparação com imagens noturnas \cite{piedad2022},
 o modelo treinado no conjunto de dados do \acrshort{cor} obteve menores diferenças na acurácia entre imagens diurnas e noturnas.
-Essa maior estabilidade da acurácia pode ser explicada pela redução do claridade da imagem através do pré-processamento realizado.
+Essa maior estabilidade da acurácia pode ser explicada pela redução da claridade da imagem através do pré-processamento realizado.
 %, onde as imagens diurnas com céu mais claro foram escurecidas, semelhando-se a imagens noturnas.
 % ----------------------------------------------------------
 \section{Outros conjuntos de dados}\label{sec:resultados_outros}

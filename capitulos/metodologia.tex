@@ -10,8 +10,6 @@ ou a quantidade é o suficiente para impactar o trânsito (classe 1).
 
 \section{Conjunto de dados}\label{sec:dataset}
 
-% explicar por que fiz a escolha por câmeras
-
 O conjunto de dados consiste em imagens de 77 câmeras diferentes da cidade do Rio de Janeiro, capturadas pelo sistema de câmeras do \Acrfull{cor}. 
 Neste conjunto, cada câmera possui 30 imagens para cada uma das classes deste problema de classificação binário. 
 Ou seja, o conjunto de dados é formado por 60 imagens de cada câmera, totalizando 4620 imagens. 
@@ -31,8 +29,6 @@ foram escolhidas as câmeras com quantidade suficiente de imagens de ambas as cl
 
 % -----------------------
 \subsection{Captação de imagens}
-
-%\textit{\textbf{André: estações de chuva} é algum nome técnico, ou você queria dizer dias de chuvas ou épocas de chuvas?  Ainda você só quer chuvas intensas. Isso parece pela forma como escreveu, mas não fica claro! Explique melhor!} 
 
 As imagens foram captadas ao longo de 2023 em diferentes condições de iluminação e épocas de chuva, com diferentes intensidades de chuva. 
 Foi necessário captar tais imagens de maneira eficiente e inteligente, visto que o sistema de câmeras do COR é composto por milhares de câmeras, 
@@ -126,22 +122,22 @@ O intervalo com maior ocorrência de câmeras indica o desbalanceamento do conju
     \caption{Histograma de quantidade de imagens de alagamento por câmera disponível.}
     \label{fig:histcodes}
 \end{figure}
-
-Analisando o total de 472 câmeras, 330 delas possuem menos de 500 imagens registradas de ambas as classes, ou 69,9\% das câmeras.
-Vale ressaltar que esses dados não levam em conta a proporção de imagens de cada classe no total em cada câmera.
-
 % \begin{figure}[htb]
 % \centerline{\includegraphics[width=1\linewidth]{images/totalcountzoom_code.png}}
 % \caption{Histograma com eixo vertical limitado.}
 % \label{fig:totalcountzoom}
 % \end{figure}
 
+Analisando o total de 472 câmeras, 330 delas possuem menos de 500 imagens registradas de ambas as classes, ou 69,9\% das câmeras.
+Vale ressaltar que esses dados não levam em conta a proporção de imagens de cada classe no total em cada câmera.
 Diante do exposto, foi necessário considerar qual a quantidade de imagens de cada classe por câmera deve ser considerada para criar um conjunto de dados balanceado e diverso em sua representatividade de câmeras de lugares diferentes. 
 Para isso, foi analisada a quantidade de câmeras que possui um determinado número mínimo de imagens para cada classe, permitindo saber quantas imagens e qual seria a variedade de um conjunto de dados balanceado formado com as imagens captadas e classificadas.
 
 A Figura \ref{fig:balancedcodes} mostra a quantidade de câmeras para a condição descrita. 
-Inicialmente, foi julgado que 10 imagens de cada classe por câmeras formaria um conjunto de dados com relativamente poucas imagens levando em consideração as outras possíveis quantidades de imagens por câmera, compondo um conjunto de dados de 1800 imagens, visto que há 90 câmeras com pelo menos 10 imagens de cada classe. 
-Um conjunto de dados com 50 imagens de cada classe forneceria 60 câmeras, para um total de 6000 imagens, entretanto, o conjunto de dados ficaria muito maior e com menor variedade de câmeras que usar, por exemplo, o valor escolhido de 30 imagens por câmeras, que teria 77 câmeras. 
+Inicialmente, foi julgado que 10 imagens de cada classe por câmeras formaria um conjunto de dados com relativamente poucas imagens levando em consideração as outras possíveis quantidades de imagens por câmera. 
+Essa escolha geraria um conjunto de dados de 1800 imagens, visto que há 90 câmeras com pelo menos 10 imagens de cada classe. 
+Uma possibilidade é um conjunto de dados com 50 imagens de cada classe que forneceria 60 câmeras, para um total de 6000 imagens. 
+Entretanto, o conjunto de dados ficaria muito maior e com menor variedade de câmeras que usar, por exemplo, o valor escolhido de 30 imagens por câmeras, que teria 77 câmeras. 
 
 \begin{figure}[htb]
 \centerline{\includegraphics[width=1\linewidth]{images/balancedcodes.png}}
@@ -149,23 +145,27 @@ Um conjunto de dados com 50 imagens de cada classe forneceria 60 câmeras, para 
 \label{fig:balancedcodes}
 \end{figure}
 
-Ao final da avaliação dos modelos de \acrshort{cnn}s, uma reavaliação do número de imagens por câmeras é refeito para tomar uma decisão certa sobre a melhor quantidade de imagens por câmeras, 
+Portanto, as arquiteturas serão treinados no conjunto de dados de 77 câmeras, com 4620 imagens divididas em 30 imagens de cada classe para cada câmera.
+Esse conjunto foi dividido em 60 câmeras para treino e 17 para validação.
+Ao final da avaliação dos modelos de \acrshort{cnn}s, uma reavaliação do número de imagens por câmeras é feito para tomar uma decisão certa sobre a melhor quantidade de imagens por câmeras, 
 e se essa mudança acarretaria melhora nos índices usados para avaliação do modelo, como é apresentado na seção \ref{sec:cameraquantity}.
 % -----------------------
 \subsection{Pré Processamento}\label{subsec:datapreprocessing}
 
 Diversas etapas de pré-processamento foram aplicadas para melhorar a qualidade das imagens no conjunto de dados.
 
-Primeiramente, uma máscara foi aplicada para remover o logotipo do \acrshort{cor} (ou seja, a região superior esquerda com os brasão da cidade e palavras brancas sobre um fundo azul) das imagens para evitar que o logotipo enviesasse o processo de aprendizado do modelo. Isso foi feito zerando a região da imagem onde o logotipo do COR está localizado, já que sua posição é estática. Como o logotipo está presente em todos os quadros, não foi possível recriar a região apagada com quadros intermediários.
+Primeiramente, uma máscara foi aplicada para remover o logotipo do \acrshort{cor} (ou seja, a região superior esquerda com os brasão da cidade e palavras brancas sobre um fundo azul) das imagens para evitar que o logotipo enviesasse o processo de aprendizado do modelo. 
+Isso foi feito zerando a região da imagem onde o logotipo do COR está localizado, já que sua posição é estática. 
+Como o logotipo está presente em todos os quadros, não foi possível recriar a região apagada com quadros intermediários.
 
-Segundo, como algumas imagens podem apresentar brilho excessivo, os canais de imagem $RGB$ originais foram convertidos para o espaço de cor $YC_rC_b$ para permitir o ajuste no canal \textit{Y}, 
-reduzindo o brilho da imagem. Essa transformação no canal \textit{Y} foi feita multiplicando os valores de pixel no canal \textit{Y} por um fator de brilho, 
+Segundo, como algumas imagens podem apresentar claridade excessivo, os canais de imagem $RGB$ originais foram convertidos para o espaço de cor $YC_rC_b$ para permitir o ajuste no canal \textit{Y}, 
+reduzindo o claridade da imagem. Essa transformação no canal \textit{Y} foi feita multiplicando os valores de pixel no canal \textit{Y} por um fator de claridade, 
 um número real positivo mas menor que 1, com um valor inicial de 0,5. 
 
 Então, cada informação de pixel $YC_rC_b$ é convertida de volta para  \textit{RGB}, para ser mostrada nas telas do computador colorida como originalmente. 
-Entretanto, outros valores de fator de brilho (FB) foram avaliados posteriormente na seção \ref{sec:bestmodel}.
-As Figuras \ref{fig:samplebright} e \ref{fig:samplebright_half} mostram a mesma cena de um local onde o FB foi aplicado. 
-É possível notar a diferença na intensidade do brilho da cena após a alteração no canal \textit{Y}.
+Entretanto, outros valores de fator de claridade (FC) foram avaliados posteriormente na seção \ref{sec:bestmodel}.
+As Figuras \ref{fig:samplebright} e \ref{fig:samplebright_half} mostram a mesma cena de um local onde o FC foi aplicado. 
+É possível notar a diferença na intensidade do claridade da cena após a alteração no canal \textit{Y}.
 
 \begin{figure}[htb]
     \centerline{\includegraphics[width=1\linewidth]{images/metodologia/samplebright.png}}

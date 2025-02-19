@@ -158,9 +158,11 @@ Primeiramente, uma máscara foi aplicada para remover o logotipo do \acrshort{co
 Isso foi feito zerando a região da imagem onde o logotipo do COR está localizado, já que sua posição é estática. 
 Como o logotipo está presente em todos os quadros, não foi possível recriar a região apagada com quadros intermediários.
 
-Segundo, como algumas imagens podem apresentar claridade excessivo, os canais de imagem $RGB$ originais foram convertidos para o espaço de cor $YC_rC_b$ para permitir o ajuste no canal \textit{Y}, 
-reduzindo o claridade da imagem. Essa transformação no canal \textit{Y} foi feita multiplicando os valores de pixel no canal \textit{Y} por um fator de claridade, 
-um número real positivo mas menor que 1, com um valor inicial de 0,5. 
+Segundo, como algumas imagens podem apresentar claridade excessiva, os canais de imagem $RGB$ originais foram convertidos para o espaço de cor $YC_rC_b$ para permitir o ajuste no canal \textit{Y}, 
+reduzindo a claridade da imagem. 
+Essa transformação no canal \textit{Y} foi feita através de uma transformação linear na intensidade do canal. 
+Os valores de pixel no canal \textit{Y} são multiplciados por um fator que reduziria sua influência na imagem.
+Tal fator foi denominado fator de claridade (FC), um número real positivo entre 0 e 1, avaliado com um valor inicial de 0,5. 
 
 Então, cada informação de pixel $YC_rC_b$ é convertida de volta para  \textit{RGB}, para ser mostrada nas telas do computador colorida como originalmente. 
 Entretanto, outros valores de fator de claridade (FC) foram avaliados posteriormente na seção \ref{sec:bestmodel}.

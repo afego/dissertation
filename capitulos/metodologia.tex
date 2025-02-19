@@ -91,33 +91,53 @@ A Fig. \ref{fig:class1_1} é o exemplo de uma rua (na zona norte da cidade) parc
 \label{fig:class1_2}
 \end{figure}
 
-A Figura \ref{fig:totalcount} mostra um histograma indicando a quantidade de imagens (eixo vertical) de cada classe por cada câmera (eixo horizontal), 
-que consiste no conjunto de dados original capturado sem balanceamento das classes. 
+As Figuras \ref{fig:class0count} e \ref{fig:class1count} mostram a quantidade de imagens (eixo vertical) de cada câmera (eixo horizontal) para a classe 0 e classe 1, respectivamente. 
+Essas imagens consistem no conjunto de dados original capturado de 472 câmeras do sistema do \acrshort{cor}, sem balanceamento das classes. 
 As imagens de cada classe correspondem as cores, ou seja se identificam em \textbf{alagadas} ou \textbf{não alagadas} de acordo com as cores (azul ou vermelho) de parte das linhas das câmeras mostradas no eixo horizontal do histograma de distribuição. 
-Pode-se observar que algumas câmeras possuem muito mais imagens que a outras, provavelmente por ter ocorrido mais chuvas nas regiões onde estas estão localizadas. 
+Pode-se observar que algumas câmeras possuem muito mais imagens da classe 1 que a outras, provavelmente por ter ocorrido mais chuvas nas regiões onde estas estão localizadas. 
 %Ou seja, estarem em regiões (geográficas) onde há maior distribuição de chuvas na cidade do Rio de Janeiro. 
 Assim, a criação de um conjunto de dados sem uma análise prévia da representatividade de cada câmera no conjunto possivelmente criaria um viés em qualquer modelo treinado neste conjunto.
 
-\begin{figure}[htb]
-\centerline{\includegraphics[width=1\linewidth]{images/totalcount_code.png}}
-\caption{Histograma de cada classe por câmera disponível.}
-\label{fig:totalcount}
-\end{figure}
-
-Diminuindo o limite do eixo vertical, se torna mais claro a quantidade de imagens das demais câmeras, como pode ser visto na Figura \ref{fig:totalcountzoom}. A figura indica a quantidade de imagens de cada classe em cada câmera, com eixo vertical
-limitado. Assim se identifica que do total de 472 câmeras, 330 delas possuem menos de 500 imagens registradas de ambas as classes, ou 69,9\% delas. Esses dados também não levam em conta a proporção de cada classe no total de imagens em cada câmera.
+% \begin{figure}[htb]
+% \centerline{\includegraphics[width=1\linewidth]{images/totalcount_code.png}}
+% \caption{Histograma de cada classe por câmera disponível.}
+% \label{fig:totalcount}
+% \end{figure}
 
 \begin{figure}[htb]
-\centerline{\includegraphics[width=1\linewidth]{images/totalcountzoom_code.png}}
-\caption{Histograma com eixo vertical limitado.}
-\label{fig:totalcountzoom}
+    \centerline{\includegraphics[width=1\linewidth]{images/metodologia/class_0_count_code.png}}
+    \caption{Quantidade de imagens de normalidade por câmera disponível.}
+    \label{fig:class0count}
 \end{figure}
 
-% \textbf{FAZER UM HISTOGRAMA COM BUCKETS DE QUANTIDADES DE IMAGENS}
-% \textbf{SEPARAR POR CLASSES ORIGINAIS (normal, poça, etc}
+\begin{figure}[htb]
+    \centerline{\includegraphics[width=1\linewidth]{images/metodologia/class_1_count_code.png}}
+    \caption{Quantidade de imagens de alagamento por câmera disponível.}
+    \label{fig:class1count}
+\end{figure}
+
+% Diminuindo o limite do eixo vertical, se torna mais claro a quantidade de imagens das demais câmeras, como pode ser visto na Figura \ref{fig:totalcountzoom}. 
+% A figura indica a quantidade de imagens de cada classe em cada câmera, com eixo vertical limitado.
+A Figura \ref{fig:histcodes} mostra uma distribuição de frequência de câmeras por quantidade de imagens, separadas em intervalos de 100 imagens.
+O intervalo com maior ocorrência de câmeras indica o desbalanceamento do conjunto de imagens captadas onde 206 câmeras, ou 43,6\%, possuem até 100 imagens ao todo. 
+
+\begin{figure}[htb]
+    \centerline{\includegraphics[width=1\linewidth]{images/metodologia/histcodes.png}}
+    \caption{Histograma de quantidade de imagens de alagamento por câmera disponível.}
+    \label{fig:histcodes}
+\end{figure}
+
+Analisando o total de 472 câmeras, 330 delas possuem menos de 500 imagens registradas de ambas as classes, ou 69,9\% das câmeras.
+Vale ressaltar que esses dados não levam em conta a proporção de imagens de cada classe no total em cada câmera.
+
+% \begin{figure}[htb]
+% \centerline{\includegraphics[width=1\linewidth]{images/totalcountzoom_code.png}}
+% \caption{Histograma com eixo vertical limitado.}
+% \label{fig:totalcountzoom}
+% \end{figure}
 
 Diante do exposto, foi necessário considerar qual a quantidade de imagens de cada classe por câmera deve ser considerada para criar um conjunto de dados balanceado e diverso em sua representatividade de câmeras de lugares diferentes. 
-Para isso, foi analisada a quantidade de câmeras que possui  um determinado número mínimo de imagens para cada classe, permitindo saber quantas imagens e qual seria a variedade de um conjunto de dados balanceado formado com as imagens captadas e classificadas.
+Para isso, foi analisada a quantidade de câmeras que possui um determinado número mínimo de imagens para cada classe, permitindo saber quantas imagens e qual seria a variedade de um conjunto de dados balanceado formado com as imagens captadas e classificadas.
 
 A Figura \ref{fig:balancedcodes} mostra a quantidade de câmeras para a condição descrita. 
 Inicialmente, foi julgado que 10 imagens de cada classe por câmeras formaria um conjunto de dados com relativamente poucas imagens levando em consideração as outras possíveis quantidades de imagens por câmera, compondo um conjunto de dados de 1800 imagens, visto que há 90 câmeras com pelo menos 10 imagens de cada classe. 
@@ -140,7 +160,8 @@ Primeiramente, uma máscara foi aplicada para remover o logotipo do \acrshort{co
 
 Segundo, como algumas imagens podem apresentar brilho excessivo, os canais de imagem $RGB$ originais foram convertidos para o espaço de cor $YC_rC_b$ para permitir o ajuste no canal \textit{Y}, 
 reduzindo o brilho da imagem. Essa transformação no canal \textit{Y} foi feita multiplicando os valores de pixel no canal \textit{Y} por um fator de brilho, 
-um número decimal positivo mas menor que 1, com um valor inicial de 0,5. 
+um número real positivo mas menor que 1, com um valor inicial de 0,5. 
+
 Então, cada informação de pixel $YC_rC_b$ é convertida de volta para  \textit{RGB}, para ser mostrada nas telas do computador colorida como originalmente. 
 Entretanto, outros valores de fator de brilho (FB) foram avaliados posteriormente na seção \ref{sec:bestmodel}.
 As Figuras \ref{fig:samplebright} e \ref{fig:samplebright_half} mostram a mesma cena de um local onde o FB foi aplicado. 

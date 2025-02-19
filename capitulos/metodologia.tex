@@ -16,10 +16,10 @@ O conjunto de dados consiste em imagens de 77 câmeras diferentes da cidade do R
 Neste conjunto, cada câmera possui 30 imagens para cada uma das classes deste problema de classificação binário. 
 Ou seja, o conjunto de dados é formado por 60 imagens de cada câmera, totalizando 4620 imagens. 
 Do total de 77 câmeras, 60 foram escolhidas para compôr o conjunto de treino e 17 câmeras para validação, ou seja 78\% das câmeras compõem o conjunto de treino e 22\% o conjunto de validação.
-\textbf{FALAR MAIS SOBRE O CONJUNTO DISJUNTO DE IMAGENS AQUI E NO FINAL DA SECAO}
 
 Este trabalho frequentemente se refere ao conjunto de dados usado pelo número de câmeras, em vez de descrever diretamente o número de imagens.
 Isso é feito propositalmente, visto que foi decidido não utilizar imagens da mesma câmera em treino e em validação, para evitar qualquer tipo de viés em sua validação.
+Portanto, cada câmera do conjunto de dados pertence somente ao conjunto de treino ou o conjunto de validação.
 
 Como as imagens foram capturadas em uma cidade movimentada durante o período de chuvas, uma variedade de imagens foi utilizada para o treinamento, 
 desde ruas vazias em um dia ensolarado até tráfego intenso em dias chuvosos durante a noite.
@@ -44,18 +44,22 @@ Foram utilizados alertas do aplicativo Waze sobre alagamento de ruas e notifica�
 
 
 % -----------------------
-\subsection{Classificação de imagens}
+\subsection{Análise de imagens}
 Para a classificação das imagens, foi criada uma aplicação web baseada em Flask e utilizando MongoDB como banco de dados. 
-As imagens já estavam classificadas em seis (6) níveis definidos pelo próprio COR. Estes níveis, em ordem crescente de severidade, são: Normal; Poça; Lâmina; Alagamento; Transbordo; e Bolsão. 
+As imagens já estavam separadas em seis (6) níveis definidos pelo próprio COR. Estes níveis, em ordem crescente de severidade, são: Normal; Poça; Lâmina; Alagamento; Transbordo; e Bolsão. 
 
 %\textit{Você poderia por em exemplo de cada uma em uma tamanho maior queque vem usando, pois eles estão pesando na compilação por serem enormes, nas no texto você as esta colocando pequenas. }
 
-Para a simplificar, tendo em vista que não há um limite claramente definido entre cada uma dessas classificações, as classes 'Normal' e 'Poça' foram definidas como classe 0, 
+Para simplificar, tendo em vista que não há um limite claramente definido entre cada uma dessas classificações, as classes 'Normal' e 'Poça' foram definidas como classe 0, 
 visto que não há impacto no trânsito de veículos. À partir do surgimento de lâminas d'água, 
-o trânsito de veículos começa a ser afetado visto que estes devem diminuir sua velocidade para evitar derrapagem \cite{michelinaquaplaning} então, a partir da classe 'Lâmina', 
+o trânsito de veículos começa a ser afetado visto que estes devem diminuir sua velocidade para evitar derrapagem \cite{michelinaquaplaning} então, a partir do nível3 'Lâmina', 
 as classes mais severas foram definidas como classe 1.
 
-A Fig. \ref{fig:class0_1} e a Fig. \ref{fig:class0_2} mostram exemplos de ruas classificadas como \textbf{não alagadas}, ou classe 0. Quando há água na rua, mas ela não impede o tráfego de veículos, decidiu-se que tais situações não seriam classificadas como \textit{alagamento}.
+A Figura \ref{fig:class0_1}, mostra uma importante avenida na zona sul do Rio de Janeiro, no entorno da Lagoa Rodrigo de Freitas. 
+A Av. Epitácio Pessos na altura da Rua Maria Quitéria, no lado desta lagoa próximo ao bairro de Ipanema. 
+A Figura \ref{fig:class0_2}, mostra a rua Jardim Botanico, no cruzamento coma rua Pacheco Leão, no bairro Jardim Botanico.
+Estas figuras são exemplos de vias classificadas como \textbf{não alagadas}, ou classe 0. 
+Quando há água na via, mas ela não impede o tráfego de veículos, decidiu-se que tais situações não seriam classificadas como \textit{alagamento}.
 
 \begin{figure}[htb]
 \centerline{\includegraphics[width=0.8\linewidth]{images/0/CODE32 2023-02-22 08-15-04-6.jpg}}
@@ -69,19 +73,21 @@ A Fig. \ref{fig:class0_1} e a Fig. \ref{fig:class0_2} mostram exemplos de ruas c
 \label{fig:class0_2}
 \end{figure}
 
-Por outro lado, a Fig. \ref{fig:class1_1} e a Fig. \ref{fig:class1_2} mostram capturas de ruas classificadas como \textbf{alagadas}, ou classe 1. 
+Por outro lado, a Fig. \ref{fig:class1_1} e a Fig. \ref{fig:class1_2} mostram capturas de vias classificadas como \textbf{alagadas}, ou classe 1. 
 Em ambas as imagens, é possível ver água cobrindo bastante a rua, dificultando ou impossibilitando a passagem de veículos. 
+A Fig. \ref{fig:class1_1} é uma cena capturada pela câmera localizada na zona sul do Rio de Janeiro, no entorno da Lagoa Rodrigo de Freitas. 
+A Av. Borges de Medeiros em seu cruzamneto com a Rua Saturnino de Brito, no lado desta lagoa próximo ao bairro Jardim Botânico
 A Fig. \ref{fig:class1_1} é o exemplo de uma rua (na zona norte da cidade) parcialmente alagada, dificultante o transito dos veículos onde as calçadas ainda podem ser identificadas. A Fig. \ref{fig:class1_2} é o exemplo de uma rua (da zona sul), sem distinção de calçada ou rua, completamente alagada. Essas situações constituem a classe \textit{alagamento}. 
 
 \begin{figure}[htb]
 \centerline{\includegraphics[width=0.8\linewidth]{images/1/CODE1884 2023-08-20 12-56-29-9.jpg}}
-\caption{Caminho parcialmente alagado (classe 1).}
+\caption{Rua parcialmente alagada (classe 1).}
 \label{fig:class1_1}
 \end{figure}
 
 \begin{figure}[htb]
 \centerline{\includegraphics[width=0.8\linewidth]{images/1/CODE235 2023-02-07 20-11-08-9.jpg}}
-\caption{Via totalmente alagada (classe 1).}
+\caption{Avenida totalmente alagada (classe 1).}
 \label{fig:class1_2}
 \end{figure}
 
@@ -137,16 +143,17 @@ reduzindo o brilho da imagem. Essa transformação no canal \textit{Y} foi feita
 um número decimal positivo mas menor que 1, com um valor inicial de 0,5. 
 Então, cada informação de pixel $YC_rC_b$ é convertida de volta para  \textit{RGB}, para ser mostrada nas telas do computador colorida como originalmente. 
 Entretanto, outros valores de fator de brilho (FB) foram avaliados posteriormente na seção \ref{sec:bestmodel}.
-As Figuras \ref{fig:samplebright} e \ref{fig:samplebright_half} mostram a mesma imagem de uma rua onde o FB foi aplicado. É possível notar a diferença na intensidade do brilho da imagem após a alteração no canal \textit{Y}.
+As Figuras \ref{fig:samplebright} e \ref{fig:samplebright_half} mostram a mesma cena de um local onde o FB foi aplicado. 
+É possível notar a diferença na intensidade do brilho da cena após a alteração no canal \textit{Y}.
 
 \begin{figure}[htb]
     \centerline{\includegraphics[width=1\linewidth]{images/metodologia/samplebright.png}}
-    \caption{Exemplo de rua sem alteração no canal \textit{Y}.}
+    \caption{Exemplo de região sem alteração no canal \textit{Y}.}
     \label{fig:samplebright}
 \end{figure}
 \begin{figure}[htb]
     \centerline{\includegraphics[width=1\linewidth]{images/metodologia/samplebright_half.png}}
-    \caption{Exemplo de rua com 50\% do valor original de \textit{Y}.}
+    \caption{Exemplo de mesma região com 50\% do valor original de \textit{Y}.}
     \label{fig:samplebright_half}
 \end{figure}
 
@@ -154,14 +161,14 @@ As Figuras \ref{fig:samplebright} e \ref{fig:samplebright_half} mostram a mesma 
 
 %\textbf{André. isso que fala no inicio do próximo paragrafo deveria ficar em um dos capítulos iniciais, veja que perguntei isto, em relação ao tipo de câmera. Em dissertações você deve é pode ser prolixo, isso não é artigo com máximo de paginas fixas!  Aqui tem que se proteger do membro da banca ler correndo e nem notar algo importante como isso que aqui descreve} 
 
-Para introduzir mais variedade às imagens na observação, na terceira etapa, uma inversão horizontal aleatória foi aplicada com uma probabilidade de 50\% nos dados de entrada.
+Para introduzir mais variedade às imagens no treinamento, em seguida foi aplicada uma inversão horizontal aleatória foi aplicada com uma probabilidade de 50\% nos dados de entrada.
 Em outras palavras, cada imagem da divisão de treinamento tem 50\% de chance de ser invertida horizontalmente ou não.
 
-Além disso, transformações padrões são usadas para preparar as imagens para cada modelo $CNN$. 
-Esta última etapa aplica aos dados inicialmente um processo de redimensionamento para transformar cada quadro ajustado ao tamanho esperado de cada modelo,
+Além disso, transformações padrões de redimensionamento, corte e normalização de intensidades são usadas para preparar as imagens para cada modelo $CNN$. 
+É aplicado aos dados inicialmente um processo de redimensionamento para transformar cada quadro ajustado ao tamanho esperado de cada modelo,
 onde as imagens com dimensão 854 x 480 pixels são redimensionadas para 256 x 256 pixels. 
 Então eles são submetidos a um corte de dimensão 224 x 224 pixels de mesmo centro da imagem.
-Com exceção do \textit{Inception}, que redimensiona para 342 x 342 pixels e realiza um corte central de 299 px.
+Com exceção do \textit{Inception}, que redimensiona para 342 x 342 pixels e realiza um corte central de 299 x 299 pixels.
 Os valores do conteúdo de cada pixel são redimensionados para estarem no intervalo [0,1]. 
 
 %\textit{Andre(não entendi nada do que foi feito pelo falado no próximo paragrafo) RE ESCREVE}
@@ -203,7 +210,7 @@ A acurácia pode ser calculada pela seguinte fórmula:
 \end{equation}
 
 O índice de avaliação de precisão indica a porcentagem de imagens classificadas como positivas que realmente pertencem à classe positiva \cite{FAWCETT2006861}. 
-Ela é especialmente relevante para aumentar a confiabilidade do modelo na identificação correta da situação de inundação.
+É especialmente relevante para aumentar a confiabilidade do modelo na identificação correta da situação de inundação.
 
 %A precisão é um indicativo da proporção de classificações positivas corretas em relação ao total de predições positivas, e é uma medida importante em contextos onde a minimização de falsos positivos é desejável.%
 A Equação \ref{eqn:precision} formaliza o cálculo da precisão:

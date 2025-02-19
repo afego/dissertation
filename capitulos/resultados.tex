@@ -1,6 +1,7 @@
 \chapter{Experimentos e Resultados}\label{cap:resultados}
-Esta seção apresenta os resultados das cinco arquiteturas mencionadas. 
-Em seguida, a arquitetura com a melhor desempenho é analisada mais detalhadamente em diferentes aspectos.
+Esta seção apresenta os resultados das cinco arquiteturas analisadas. 
+Em seguida, a arquitetura com melhor desempenho é analisada mais detalhadamente em diferentes aspectos.
+Todos a pesquisa foi realizada em uma máquina com placa gráfica NVIDIA GeForce RTX 3060 Ti, processador Intel Core i7-11700K de 3,60GHz e 16GB de memória RAM.
 % ----------------------------------------------------------
 \section{Resultados dos Modelos}\label{sec:modelsresults}
 %A Tabela \ref{tab:metrics} exibe a acurácia, precisão e revocação das arquiteturas escolhidas. 
@@ -70,12 +71,13 @@ Portanto, o \acrshort{vit} foi escolhido como o modelo a ser utilizado na contin
 Após a escolha da arquitetura de melhor depesempenho, outras análises devem ser feitas para saber se é possível melhorar seus resultados e o quão adequado foi seu treinamento.
 
 \subsection{Diminuição da intensidade luminosa}
-Após a escolha da arquitetura de melhor desempenho, diferentes valores para o fator de brilho (\textit{FB}), conforme mencionado em \ref{subsec:datapreprocessing}, foram avaliados usando o \acrshort{vit}, a fim de analisar se o modelo poderia ser aprimorado, levando em consideração o brilho excessivo em algumas imagens.
+Após a escolha da arquitetura de melhor desempenho, diferentes valores para nesta dissertação denomidado de fator de brilho (\textit{FB}), conforme mencionado em \ref{subsec:datapreprocessing}, foram avaliados usando o \acrshort{vit}, a fim de analisar se o modelo poderia ser aprimorado, levando em consideração o brilho excessivo em algumas imagens.
 
-A Tabela \ref{tab:brightnessfactor} mostra o desempenho do \acrshort{vit} com quatro valores diferentes para \textit{FB}, onde o valor 1 para \textit{FB} significa que o brilho da imagem permanece inalterado. Reduzir o \textit{FB} melhorou gradualmente o desempenho do modelo, porém um \textit{FB} muito baixo impactou negativamente o modelo, como mostram os resultados com \textit{FB} igual a 0,25. Reduzir o \textit{FB} para 0,75 melhorou os resultados marginalmente, no entanto, a escolha inicial de 0,5 mostrou-se a melhor entre os valores testados.
+A Tabela \ref{tab:brightnessfactor} mostra o desempenho do \acrshort{vit} com quatro valores diferentes para \textit{FB}, onde o valor 1 para \textit{FB} significa que a intensidade luminosa da imagem não foi alterada, ou seja a quantidade de regiões com pixeis na cor branca permanece a original. 
+Reduzir o \textit{FB} melhorou gradualmente o desempenho do modelo, porém um \textit{FB} muito baixo impactou negativamente o modelo, como mostram os resultados com \textit{FB} igual a 0,25. Reduzir o \textit{FB} para 0,75 melhorou os resultados marginalmente, no entanto, a escolha inicial de 0,5 mostrou-se a melhor entre os valores testados.
 
 \begin{table}[tb]
-\caption{\label{tab:brightnessfactor} Redução de brilho e desempenho do \acrshort{vit}}
+\caption{\label{tab:brightnessfactor} Redução de áreas de brancos e desempenho do \acrshort{vit}}
 \begin{center}
 \begin{tabular}{c|ccc}
 \toprule
@@ -114,15 +116,16 @@ características no conjunto de validação que não estão presentes no conjunt
 %Devido ao considerável número de imagens capturadas durante a chuva, uma quantidade não negligenciável de imagens apresenta problemas de nitidez. 
 %seja devido à lente da câmera estar molhada ou devido à alta reflexão de luz em poças de água na rua.
 % ----------------------------------------------------------
-\subsection{Melhor Modelo com Diferentes Quantidades de Câmeras}\label{sec:cameraquantity}
+\subsection{Melhor modelo com diferentes quantidades de câmeras}\label{sec:cameraquantity}
 
-\textbf{escrever um parágrafo explicitando o objetivo dessa seção}
-Levando em consideração a quantidade de imagens para treino, o modelo também foi avaliado com diferentes quantidades de câmeras no conjunto de treino, 
-mas mantendo a quantidade de imagens por classe para cada câmera.
-Para montar os outros conjuntos de treinos a serem comparados ao já utilizado, das 60 câmeras que a compõem foram escolhidas aletoriamente 30 câmeras para montar o segundo conjunto
-e dessas 30 câmeras foram selecionados aleatoriamente 15 câmeras para formar o terceiro conjunto.
+Com o objetivo de verificar se aumentar a quantidades de câmeras no conjunto de treino levaria a melhorias significativas de sua performance, 
+a arquitetura \acrshort{vit} foi treinada com conjuntos de treinos menores. 
+Esses conjuntos de treino possuem menores quantidades de câmeras, mas mantêm a quantidade de imagens por classe para cada câmera.
+Para montar estes conjuntos a serem comparados ao utilizado, entre as 60 câmeras que compõem o original foram escolhidas aletoriamente 30 câmeras para montar o segundo conjunto.
+Dessas 30 câmeras foram selecionadas aleatoriamente 15 câmeras para formar o terceiro conjunto.
 Dessa forma, todos os três conjuntos de treinos possuem as mesmas 15 câmeras, e o efeito de adicionar novas câmeras ao conjunto pode ser mais facilmente compreendido.
-A Tabela \ref{tab:trainingimages} mostra a relação entre o tamanho do conjunto de treino, sua acurácia e tempo de treino. O modelo foi testado no mesmo conjunto de teste.
+A Tabela \ref{tab:trainingimages} mostra a relação entre o tamanho do conjunto de treino, sua acurácia e tempo de treino. 
+O modelo foi testado no mesmo conjunto de teste que faz parte do conjunto de dados original.
 
 \begin{table}[!ht]
 \begin{center}
@@ -153,7 +156,7 @@ Apesar de inicialmente todos os modelos serem treinados utilizando \acrshort{sgd
 a escolha de diferentes otimizadores com diferentes taxas de aprendizado podem afetar a performance da \acrshort{cnn}. 
 
 Baseado nos resultados de Dogo \textit{et al.} \cite{Dogo2022optimizers}, onde diferentes otimizadores foram comparados com redes neurais e conjuntos de dados de diferentes tamanhos e complexidades, 
-Este trabalho comparou o \acrshort{vit} com \acrshort{sgd} com o \acrlong{adam}\cite{adam} e o \acrlong{nadam}\cite{nadam}. 
+essa dissertação comparou os resultados no \acrshort{vit} com \acrshort{sgd}, \acrlong{adam}\cite{adam} e o \acrlong{nadam}\cite{nadam}. 
 Todos os otimizadores utilizaram as mesmas configurações descritas na seção \ref{sec:methodology_models}, com diferentes taxa de aprendizado iniciais.
 
 \begin{table}[tb]
@@ -180,7 +183,8 @@ Todos os otimizadores utilizaram as mesmas configurações descritas na seção 
 \label{fig:optmizer_acc}
 \end{figure}
 
-Os resultados mostram que ambos \acrshort{adam} e \acrshort{nadam} possuíram acurácias melhores que o \acrshort{sgd}, com o \acrshort{nadam} obtendo a melhor acurácia de 0,86 com taxa de aprendizado de 1x10$^{-5}$.
+Os resultados mostram que ambos \acrshort{adam} e \acrshort{nadam} possuíram acurácias melhores que o \acrshort{sgd}. 
+O \acrshort{nadam} obteve a melhor acurácia: 0,86 com taxa de aprendizado de 1x10$^{-5}$.
 Avaliando o \acrshort{sgd}, taxas de aprendizado menores obtiveram piores resultados, provavelmente indicando que o passo foi muito pequeno para sair de mínimos locais, especialmente em uma arquitetura mais complexa como o \acrshort{vit}. 
 
 Nenhum dos otimizadores conseguiu boa performance com a taxa de aprendizado mais baixa, 
@@ -209,7 +213,8 @@ Isso é corroborado pela curva de perda, onde a perda na validação aumentou, e
 Fazendo a mesma análise para a taxa de aprendizagem de 1x10$^{-6}$, onde a acurácia de validação foi um pouco menor, pode-se notar algumas semelhanças e diferenças.
 Ainda houve uma diferença significativa entre as acurácias de treino e validação, onde a acurácia de treino estabilizou por volta de 98\%, enquanto a acurácia de validação ficou em 82\%.
 
-Entretanto, a curva de perda mostrou melhorias. Tanto a curva de treino quanto a curva de validação tenderam a diminuir, apesar de que a diminuição da perda na validação não foi tão significativa.
+Entretanto, a curva de perda mostrou melhorias. 
+Tanto a curva de treino quanto a curva de validação tenderam a diminuir, apesar de que a diminuição da perda na validação não ser tão significativa.
 Este modelo não mostrou sinais claros de \textit{overfitting} como o modelo com maior taxa de aprendizagem, mas ainda demonstra sinais de melhorias.
 
 \begin{figure}[tb]
@@ -240,10 +245,10 @@ entretanto, teve maior diferença entre as acurácias de treino e validação, a
 % \label{fig:adam_loss}
 % \end{figure}
 % ----------------------------------------------------------
-\section{Comparações entre o dia e à noite}
+\section{Comparações entre cena diurna e noturna}
 
 Para melhor entender a iluminação da cena nos resultados da classificação do modelo \cite{piedad2022}, 
-o melhor resultado do \acrshort{vit} com o \acrshort{sgd} descrito na seção \ref{sec:optimizer} foi avaliado em relação a suas métricas com a luz do dia e à noite, 
+o melhor resultado do \acrshort{vit} com o \acrshort{sgd} descrito na seção \ref{sec:optimizer} foi avaliado em relação a suas métricas com a luz do dia e com luzes noturnas no local, 
 com os resultados mostrados na tabela \ref{tab:daynight_acc}.
 
 \begin{table}[tb]
@@ -285,17 +290,18 @@ o modelo treinado no conjunto de dados do \acrshort{cor} obteve menores diferen�
 Essa maior estabilidade da acurácia pode ser explicada pela redução do brilho da imagem através do pré-processamento realizado.
 %, onde as imagens diurnas com céu mais claro foram escurecidas, semelhando-se a imagens noturnas.
 % ----------------------------------------------------------
-\section{Outros Conjuntos de Dados}\label{sec:resultados_outros}
-\textbf{Reestruturar para ter frases mais curtas}
+\section{Outros conjuntos de dados}\label{sec:resultados_outros}
+
 O modelo \acrshort{vit} treinado no conjunto do COR também foi testado em dois outros conjuntos de dados, 
-o \acrfull{efd} \cite{BarzSchroeterMuench2018_1000117723}, composto de 327 imagens de normalidade e 252 imagens de alagamento para um total de 579 imagens,
-e o conjunto de dados de Sazara \textit{et al.} \cite{sazara2019} com 491 imagens, onde 238 são de normalidade e 253 são imagens de alagamento. 
+o \acrfull{efd} \cite{BarzSchroeterMuench2018_1000117723} e o conjunto de dados de Sazara \textit{et al.} \cite{sazara2019}.
+O \acrshort{efd} é composto de 327 imagens de normalidade e 252 imagens de alagamento para um total de 579.
+O conjunto de dados de Sazara \textit{et al.} possui 491 imagens, onde 238 são de normalidade e 253 são imagens de alagamento.
+
 Podemos ver na Tabela \ref{tab:vitperformance} que o desempenho do modelo diminuiu em diferentes conjuntos de dados. 
 Apesar do aumento da precisão, houve uma queda muito grande na acurácia, mostrando que o modelo não conseguiu generalizar tão bem em imagens com diferentes ângulos, qualidade e iluminação.
-%Enquanto as imagens do \acrshort{cor} não possuem qualidade muito alta, boa parte das imagens dos outros conjuntos possuem resoluções mais altas, podendo ter afetado como o modelo analisou as novas imagens.
 
 \begin{table}[tb]
-\caption{\label{tab:vitperformance} Performance do \acrshort{vit} em diferentes conjuntos de dados}
+\caption{\label{tab:vitperformance} Performance do \acrshort{vit} em outros conjuntos de dados}
 \begin{center}
 \begin{tabular}{c|cccc}
 \toprule
@@ -308,6 +314,3 @@ Apesar do aumento da precisão, houve uma queda muito grande na acurácia, mostr
 \end{tabular}
 \end{center}
 \end{table}
-
-
-%\textbf{André, precisa mostrar que o problema é os dados deles estarem ruins, desde o capitulo 2, e falar de novo aqui.}

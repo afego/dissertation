@@ -48,10 +48,10 @@ As imagens já estavam separadas em seis (6) níveis definidos pelo próprio COR
 
 Para simplificar, tendo em vista que não há um limite claramente definido entre cada uma dessas classificações, as classes 'Normal' e 'Poça' foram definidas como classe 0, 
 visto que não há impacto no trânsito de veículos. À partir do surgimento de lâminas d'água, 
-o trânsito de veículos começa a ser afetado visto que estes devem diminuir sua velocidade para evitar derrapagem \cite{michelinaquaplaning} então, a partir do nível3 'Lâmina', 
+o trânsito de veículos começa a ser afetado visto que estes devem diminuir sua velocidade para evitar derrapagem \cite{michelinaquaplaning} então, a partir do nível 3 'Lâmina', 
 as classes mais severas foram definidas como classe 1.
 
-A Figura \ref{fig:class0_1}, mostra uma importante avenida na zona sul do Rio de Janeiro, no entorno da Lagoa Rodrigo de Freitas. 
+A Figura \ref{fig:class0_1}, mostra uma importante avenida na zona sul do Rio de Janeiro, no entorno da Lagoa Rodrigo de Freitas: 
 A Av. Epitácio Pessos na altura da Rua Maria Quitéria, no lado desta lagoa próximo ao bairro de Ipanema. 
 A Figura \ref{fig:class0_2}, mostra a rua Jardim Botanico, no cruzamento coma rua Pacheco Leão, no bairro Jardim Botanico.
 Estas figuras são exemplos de vias classificadas como \textbf{não alagadas}, ou classe 0. 
@@ -71,9 +71,8 @@ Quando há água na via, mas ela não impede o tráfego de veículos, decidiu-se
 
 Por outro lado, a Fig. \ref{fig:class1_1} e a Fig. \ref{fig:class1_2} mostram capturas de vias classificadas como \textbf{alagadas}, ou classe 1. 
 Em ambas as imagens, é possível ver água cobrindo bastante a rua, dificultando ou impossibilitando a passagem de veículos. 
-A Fig. \ref{fig:class1_1} é uma cena capturada pela câmera localizada na zona sul do Rio de Janeiro, no entorno da Lagoa Rodrigo de Freitas. 
-A Av. Borges de Medeiros em seu cruzamneto com a Rua Saturnino de Brito, no lado desta lagoa próximo ao bairro Jardim Botânico
-A Fig. \ref{fig:class1_1} é o exemplo de uma rua (na zona norte da cidade) parcialmente alagada, dificultante o transito dos veículos onde as calçadas ainda podem ser identificadas. A Fig. \ref{fig:class1_2} é o exemplo de uma rua (da zona sul), sem distinção de calçada ou rua, completamente alagada. Essas situações constituem a classe \textit{alagamento}. 
+A Fig. \ref{fig:class1_1} é o exemplo de uma rua (na zona norte da cidade) parcialmente alagada, dificultante o transito dos veículos onde as calçadas ainda podem ser identificadas. 
+A Fig. \ref{fig:class1_2} é o exemplo de uma rua (da zona sul), sem distinção de calçada ou rua, completamente alagada. Essas situações constituem a classe \textit{alagamento}. 
 
 \begin{figure}[htb]
 \centerline{\includegraphics[width=0.8\linewidth]{images/1/CODE1884 2023-08-20 12-56-29-9.jpg}}
@@ -87,18 +86,15 @@ A Fig. \ref{fig:class1_1} é o exemplo de uma rua (na zona norte da cidade) parc
 \label{fig:class1_2}
 \end{figure}
 
-As Figuras \ref{fig:class0count} e \ref{fig:class1count} mostram a quantidade de imagens (eixo vertical) de cada câmera (eixo horizontal) para a classe 0 e classe 1, respectivamente. 
+As Figuras \ref{fig:class0count} e \ref{fig:class1count} mostram a quantidade de imagens (eixo vertical) de cada câmera (eixo horizontal) para a classe 0 e classe 1, respectivamente.
+Já a Figura \ref{fig:totalcount} mostra a quantidade de imagens (eixo vertical) de cada câmera (eixo horizontal) para a classe 0 e classe 1, juntas.
+Pela grande quantidade de câmeras, os seus identificadores (ou códigos) não são mostrados no eixo horizontal. A Tabela no Apêndice \ref{apendA} mostra o identificador de cada câmera e sua quantidade de imagens de cada classe.
+
 Essas imagens consistem no conjunto de dados original capturado de 472 câmeras do sistema do \acrshort{cor}, sem balanceamento das classes. 
 As imagens de cada classe correspondem as cores, ou seja se identificam em \textbf{alagadas} ou \textbf{não alagadas} de acordo com as cores (azul ou vermelho) de parte das linhas das câmeras mostradas no eixo horizontal do histograma de distribuição. 
 Pode-se observar que algumas câmeras possuem muito mais imagens da classe 1 que a outras, provavelmente por ter ocorrido mais chuvas nas regiões onde estas estão localizadas. 
 %Ou seja, estarem em regiões (geográficas) onde há maior distribuição de chuvas na cidade do Rio de Janeiro. 
 Assim, a criação de um conjunto de dados sem uma análise prévia da representatividade de cada câmera no conjunto possivelmente criaria um viés em qualquer modelo treinado neste conjunto.
-
-% \begin{figure}[htb]
-% \centerline{\includegraphics[width=1\linewidth]{images/totalcount_code.png}}
-% \caption{Histograma de cada classe por câmera disponível.}
-% \label{fig:totalcount}
-% \end{figure}
 
 \begin{figure}[htb]
     \centerline{\includegraphics[width=1\linewidth]{images/metodologia/class_0_count_code.png}}
@@ -110,6 +106,12 @@ Assim, a criação de um conjunto de dados sem uma análise prévia da represent
     \centerline{\includegraphics[width=1\linewidth]{images/metodologia/class_1_count_code.png}}
     \caption{Quantidade de imagens de alagamento por câmera disponível.}
     \label{fig:class1count}
+\end{figure}
+
+\begin{figure}[htb]
+    \centerline{\includegraphics[width=1\linewidth]{images/totalcount_code.png}}
+    \caption{Quantidade de imagens de cada classe por câmera disponível.}
+    \label{fig:totalcount}
 \end{figure}
 
 % Diminuindo o limite do eixo vertical, se torna mais claro a quantidade de imagens das demais câmeras, como pode ser visto na Figura \ref{fig:totalcountzoom}. 

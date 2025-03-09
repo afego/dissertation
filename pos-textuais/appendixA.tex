@@ -1,6 +1,37 @@
-\chapter{TÍTULO DO APÊNDICE}
-\label{apend}
+\chapter{Tabela de quantidade de images de cada classe para cada câmera identificada pelo seu código}
+\label{apendA}
+
+% \begin{table}[h]
+%     \centering
+%     %\caption{Exemplo de Tabela CSV}
+%     \csvautotabular{dados/appendixa.csv}
+%     \label{tab:apendA}
+% \end{table}
+
+% \begin{figure}[htb]
+%     \centerline{\includegraphics[width=1\linewidth]{images/imagespercameratable.png}}
+%     %\caption{Quantidade de imagens de normalidade por câmera disponível.}
+%     \label{tab:apendA}
+% \end{figure}
+
+\begin{longtable}{|c|c|c|}
+    \hline
+    \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1} \\  
+    \hline
+    \endfirsthead
+    
+    \hline
+    \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1} \\  
+    \hline
+    \endhead
+    
+    \csvreader[head to column names]{dados/appendixa.csv}{}%
+    {\csvcoli & \csvcolii & \csvcoliii \\}%
+\end{longtable}
 
 % Este apêndice apresenta informações complementares.
+% Elemento opcional. 
+% O(s) apêndice(s) são identificados por letras maiúsculas consecutivas, travessão e pelos respectivos títulos. 
+% Excepcionalmente utilizam-se letras maiúsculas dobradas, na identificação, quando esgotadas as 23 letras do alfabeto (ABNT, 2005).
 
-Elemento opcional. O(s) apêndice(s) são identificados por letras maiúsculas consecutivas, travessão e pelos respectivos títulos. Excepcionalmente utilizam-se letras maiúsculas dobradas, na identificação, quando esgotadas as 23 letras do alfabeto (ABNT, 2005).
+

@@ -56,28 +56,7 @@ Já as equações \ref{eqn:rgb_r}, \ref{eqn:rgb_g} e \ref{eqn:rgb_b} mostram a c
     B \xleftarrow{} Y + (Cb - 128) \cdot 1,77200
 \end{equation}
 
-% \begin{equation}
-%     \label{eqn:ycrcb_y}
-%     Y \xleftarrow{} 0,299\cdot R + 0,597\cdot G + 0,114\cdot B
-% \end{equation}
-% \begin{equation}
-%     \label{eqn:ycrcb_cb}
-%     Cb \xleftarrow{} (B-Y)\cdot 0,564 + delta
-% \end{equation}
-% \begin{equation}
-%     \label{eqn:ycrcb_cr}
-%     Cr \xleftarrow{} (R-Y)\cdot 0,713 + delta
-% \end{equation}
-% onde
-% \begin{equation}
-%     \label{eqn:ycrcb_delta}
-%     delta \xleftarrow{}
-%     \begin{cases}
-%     128 & \text{para imagens de 8 bits por canal}\\
-%     32768 & \text{para imagens de 16 bits por canal}\\
-%     0,5 & \text{para imagens normalizadas entre 0 e 1}
-%     \end{cases}
-% \end{equation}
+A conversão para YCbCr foi realizada com o intuito de utilizar o canal Y para corrigir a intensidade luminosa das imagens, como comentado na seção \ref{subsec:datapreprocessing}.
 
 % -----------------------
 \subsection{Transformações de Intensidade no Domínio Espacial}

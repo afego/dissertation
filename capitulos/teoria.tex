@@ -1,34 +1,37 @@
 \chapter{Fundamentação Teórica}\label{cap:fundamentação}
 
-Este capítulo explica de forma breve os conceitos necessários para entender todas as ferramentas usadas no capítulo \ref{cap:metodologia}. 
-Para isso, o capítulo é dividido em duas sessões, onde a primeira se baseia em conceitos de processamento de imagem. Já a segunda sessão é dedicada exclusivamente para redes neurais convolucionais e as arquiteturas utilizadas.
+Este capítulo apresenta de forma sucinta os conceitos necessários para compreender as ferramentas utilizadas no capítulo \ref{cap:metodologia}.
+Para tal, o capítulo está dividido em duas seções: a primeira aborda conceitos fundamentais de processamento de imagem,
+enquanto a segunda seção é dedicada exclusivamente às redes neurais convolucionais e às arquiteturas empregadas.
 
 \section{Técnicas de Processamento de Imagens}
 
-Este trabalho foi desenvolvido em Python, utilizando a biblioteca \textit{Pillow} para manipular imagens.
-As equações que definem as conversões entre espaços são descritas de acordo com a documentação do \textit{Pillow}\cite{clark2015pillow}.
+Este trabalho foi desenvolvido em Python, utilizando a biblioteca \textit{Pillow} para manipulação de imagens.
+As equações que definem as conversões entre os espaços de cor são apresentadas conforme descrito na documentação do \textit{Pillow} \cite{clark2015pillow}.
+
 \subsection{Espaço de Cores}
-Uma imagem colorida é composta por uma ou mais bandas. 
-Usualmente, uma imagem digital em cores é composta por três bandas monocromáticas, onde cada banda armazena uma informação diferente da imagem colorida no pixel p(m,n) da banda. 
+Uma imagem colorida é composta por uma ou mais bandas (ou canais).
+Usualmente, uma imagem digital colorida é formada por três bandas monocromáticas, sendo que cada banda armazena uma informação distinta da imagem colorida para o pixel p(m,n) naquela banda.
 
-Cada banda (ou canal), de largura M pixels e altura N pixels, pode ser considerada como um plano onde um pixel está relacionado a um par de coordenadas inteiras p(m,n) pertencente à banda. 
-O valor armazenado na posição m,n no plano indica a intensidade da banda na imagem naquele ponto, usualmente com 256 possíveis valores diferentes de serem armazenados em um byte. 
-Onde 0 é a intensidade mais escura e 255 a intensidade mais clara \cite{jaelim, shapiro}.
+Cada banda, ou canal, de largura MM pixels e altura NN pixels, pode ser concebida como um plano bidimensional, onde um pixel é associado a um par de coordenadas inteiras p(m,n) pertencentes àquela banda.
+O valor armazenado na posição (m,n) indica a intensidade da banda naquele ponto da imagem, geralmente codificada em 256 níveis possíveis (valores de 0 a 255) armazenados em um byte.
+Nesse contexto, o valor 0 corresponde à intensidade mínima (preto ou ausência de luz) e 255 à intensidade máxima (branco ou máxima luminosidade) \cite{jaelim, shapiro}.
 
-Existem espaços diferentes de representação de cores, sendo o mais comum o RGB CIE (sigla para \textit{Commission internationale de l'éclairage}) de 1931, 
-ou simplesmente RGB (do inglês \textit{Red, Green and Blue}). 
-Neste espaço cada cor aparece em seu componente espectral primário correspondente a essas cores, de modo que cada banda armazena unicamente a informação da intensidade do vermelho, verde e azul respectivamente \cite{gonzalez, jaelim}. 
-O espaço de cores XYZ-CIE 1931 (XYZ) foi projetado para representar todas as cores visíveis, mesmo as que não são representáveis no RGB. 
-As componentes X e Z são elementos sem visibilidade aos olhos humanos, portanto, não existem na práticas como cores \cite{ohta}. 
-O componente Y representa a luminância ou a melhor representação monocromática possível da cena originalmente colorida.
+Existem diferentes espaços para representação de cores, sendo o mais comum o RGB-CIE, definido pela \textit{Commission Internationale de l'Éclairage} (CIE) em 1931, ou simplesmente RGB (do inglês \textit{Red, Green and Blue}).
+Neste espaço, cada cor é representada em seu componente espectral primário correspondente, de modo que cada banda armazena exclusivamente a intensidade do vermelho, verde ou azul, respectivamente \cite{gonzalez, jaelim}.
+
+Outro espaço importante é o XYZ-CIE 1931 (abreviado como XYZ), projetado para representar todas as cores visíveis, incluindo aquelas que não podem ser representadas no espaço RGB.
+As componentes XX e ZZ correspondem a elementos sem correspondência direta na percepção visual humana, não existindo, portanto, como cores perceptíveis na prática.
+Já a componente YY representa a luminância, ou seja, a melhor representação monocromática possível da cena originalmente colorida \cite{ohta}.
 % -----------------------
 
 \subsection{Conversões entre RGB e YCbCr}
 % https://github.com/python-pillow/Pillow/blob/61a35f94cf8a217db3e67d32db943b05e593e781/src/libImaging/ConvertYCbCr.c#L17-L21
 
-Nestas conversões não há nenhum tipo de alteração nos valores dos pixels no espaço de cor original antes de convertê-los para pixels no espaço de cor desejado.
-As equações \ref{eqn:ycrcb_y}, \ref{eqn:ycrcb_cb} e \ref{eqn:ycrcb_cr} mostram a conversão do espaço RGB para YCbCr.
-Já as equações \ref{eqn:rgb_r}, \ref{eqn:rgb_g} e \ref{eqn:rgb_b} mostram a conversão do espaço YCbCr para RGB.
+Nas conversões entre espaços de cor, não ocorre qualquer alteração prévia nos valores dos pixels no espaço de cor original antes de serem convertidos para o espaço de cor desejado.
+
+As equações \ref{eqn:ycrcb_y}, \ref{eqn:ycrcb_cb} e \ref{eqn:ycrcb_cr} apresentam a transformação do espaço RGB para o espaço YCbCr.
+Por sua vez, as equações \ref{eqn:rgb_r}, \ref{eqn:rgb_g} e \ref{eqn:rgb_b} descrevem a conversão inversa, do espaço YCbCr para RGB.
 
 \begin{equation}
     \label{eqn:ycrcb_y}
@@ -67,7 +70,7 @@ Essas funções podem ser representadas pela expressão:
     \label{eqn:intensitytransformation}
     g(x,y) = T\left [ f(x,y) \right ]
 \end{equation}
-onde \textit{f(x,y)} é a imagem de entrada, \textit{g(x,y)} é a imagem de saída e \textit{T} é uma função definida sobre um ponto \textit{x,y} ou sua vizinhança.
+onde \textit{f(x,y)} é a imagem de entrada, \textit{g(x,y)} é a imagem de saída e \textit{T} é uma função definida sobre um ponto \textit{(x,y)} ou sua vizinhança.
 
 Uma das transformações de intensidade mais simples é a transformação linear, onde os valores de intensidade de um canal são multiplicados por uma constante, como representado pela equação:
 \begin{equation}
@@ -80,20 +83,20 @@ Através da equação \ref{eqn:linearintensitytransformation}, a intensidade \te
 % -----------------------
 \subsection{Filtragem por Convolução}
 
-Também chamados de máscaras ou kernels, filtros são matrizes de tamanho $m \times n$ aplicadas sobre uma imagem através de multiplicações pelos valores das máscaras e somas, cujos resultados serão os valores da imagem processada.
-Suas dimensões e valores que a compõem variam dependendo da característica a ser extraída de cada vizinhança $m \times n$ da imagem, como detecção de bordas ou texturas \cite{shapiro}.
+Também denominados máscaras ou kernels, os filtros consistem em matrizes de dimensão $m \times n$ que são aplicadas sobre uma imagem por meio de operações de multiplicação elemento a elemento entre os valores da máscara e os pixels correspondentes da imagem, seguidas de somas dos resultados. O valor obtido a partir dessa operação corresponde ao pixel processado na imagem resultante.
+
+As dimensões e os valores que compõem essas máscaras variam de acordo com a característica específica que se deseja extrair de cada vizinhança $m \times n$ da imagem, tais como bordas, texturas ou outras propriedades locais \cite{shapiro}.
 % ----------------------------------------------------------
 \section{Redes Neurais Convolucionais}
 
 As redes neurais convolucionais, ou \acrshort{cnn}s, são uma classe especial de redes neurais artificiais que se especializam em processar dados com uma topologia em matrizes \cite{Goodfellow-et-al-2016}. 
 
 Inspiradas pela organização do córtex visual dos mamíferos \cite{hubel1962}, as \acrshort{cnn}s são projetadas para 
-%capturar hierarquicamente características espaciais e visuais em imagens, permitindo a extração e o aprendizado de feições cada vez mais abstratas e de alto nível. Nesta seção, abordaremos os fundamentos das CNNs, incluindo suas principais camadas, funcionamento e aplicações em análise de imagens.
 extrair características locais que dependem de uma pequena vizinhança na imagem, onde estas pequenas características podem ser usadas por outras camadas para detectar características de maior ordem e extrair informações sobre a imagem \cite{book:Bishop}. 
 
 \acrshort{cnn}s são usadas principalmente para tarefas que trabalham em imagens, como reconhecimento de objetos, segmentação de imagens e detecção de padrões complexos de dados visuais.
 
-O aprendizado de características locais permite que a \acrshort{cnn} reconheça esses padrões em qualquer outro local da imagem,  tornando-a invariante a translação. A utilização de características de uma camada por camadas sucessivas permite que a \acrshort{cnn} aprenda padrões espaciais hierárquicos \cite{book:Chollet}.
+O aprendizado de características locais permite que a \acrshort{cnn} reconheça esses padrões em qualquer outro local da imagem, tornando-a invariante a translação. A utilização de características de uma camada por camadas sucessivas permite que a \acrshort{cnn} aprenda padrões espaciais hierárquicos \cite{book:Chollet}.
 
 % -----------------------
 \subsection{Arquitetura de uma Rede Neural Convolucional}
@@ -114,7 +117,9 @@ A Figura \ref{fig:cnn_arch} mostra uma arquitetura genérica de \acrshort{cnn}.
 A camada convolucional é o núcleo de uma \acrshort{cnn} e é responsável pela extração de características. 
 Para isso pesos na forma de kernels, ou filtros da Análise de Imagem tradicional, 
 são aplicados sobre a imagem, onde são escorregados e multiplicados pelos valores dos pixels da imagem de entrada e somados resultando em um pixel para cada kernel, 
-usando uma quantidade definida de passos. Esse processo gera os mapas de características, onde cada mapa representa a resposta de um filtro específico a uma região da imagem de entrada. 
+usando uma quantidade definida de passos. 
+
+Esse processo gera os mapas de características, onde cada mapa representa a resposta de um filtro específico a uma região da imagem de entrada. 
 Essa camada detecta padrões locais como bordas, texturas ou formas, (de acordo com o kernel usado) que podem ser usados para extrair informações de padrões mais complexos conforme a rede se aprofunda.
 
 A operação de convolução S entre um filtro I e uma entrada K pode ser representada como:
@@ -126,8 +131,6 @@ A operação de convolução S entre um filtro I e uma entrada K pode ser repres
 onde S(x,y) é o mapa de características gerado (saida), I(x,y) representa a entrada local (imagem original) e K(m,n) o kernel aplicado.
 % -----------------------
 \subsubsection{Camada de Pooling}
-
-%A camada de pooling é utilizada para reduzir a dimensionalidade dos mapas de características, preservando as informações mais relevantes e diminuindo o custo computacional da rede. As operações de pooling ajudam a tornar a rede menos sensível a pequenas variações e deslocamentos na imagem, além de promover uma forma de regularização que reduz o risco de overfitting.
 
 A camada de pooling altera a saída da camada convolucional com um resumo estatístico de uma vizinhança, melhorando a eficiência computacional da rede pela diminuição da dimensionalidade da saída e ajudando a tornar a saída menos variante a translações da entrada.
 Este resumo estatístico pode ser feito com diferentes operações. Por exemplo a arquitetura VGG19 \cite{vgg} utiliza \textit{max pooling}, onde a saída é o maior valor na vizinhança analisada. A operação \textit{average pooling} é utilizada no InceptionV3 \cite{inceptionv3}, onde a média da vizinhança é calculada.
@@ -175,17 +178,17 @@ Neste trabalho, o aprendizado por transferência baseado no IMAGENET \cite{deng2
 \subsection{Visual Geometry Group (VGG)}
 A \acrshort{vgg} é uma família de \acrshort{cnn}s que possuem arquiteturas simples. 
 Propostas por \cite{vgg}, as \acrshort{vgg}s são compostas por blocos uniformes empilhados com duas camadas convolucionais e uma camada de \textit{pooling}. 
-As camadas de \textit{pooling} têm tamanho 2x2 reduzindo a dimensionalidade da convolução pela metade. 
+As camadas de \textit{pooling} têm tamanho $2 \times 2$ reduzindo a dimensionalidade da convolução pela metade. 
 
-Já as camadas convolucionais compartilham do mesmo tamanho de filtro, sendo estes 3x3. Além disso, cada bloco dobra a quantidade de filtros de suas camadas convolucionais em relação ao bloco anterior. Por exemplo, o primeiro bloco de uma rede \acrshort{vgg} possui 64 filtros 3x3 em suas camada convolucionais, enquanto o segundo bloco possui 128 filtros 3x3.
+Já as camadas convolucionais compartilham do mesmo tamanho de filtro, sendo estes $3 \times 3$. Além disso, cada bloco dobra a quantidade de filtros de suas camadas convolucionais em relação ao bloco anterior. Por exemplo, o primeiro bloco de uma rede \acrshort{vgg} possui 64 filtros $3 \times 3$ em suas camada convolucionais, enquanto o segundo bloco possui 128 filtros $3 \times 3$.
 
 Este trabalho utilizou a \acrshort{vgg}-19, que indica a existência de 19 camadas de aprendizado, contando não só as camadas convolucionais como as camadas completamente conectadas.
 % -----------------------
 \subsection{Inception}
 
-Diferente do \acrshort{vgg}, a família \textit{Inception}\cite{inception} de \acrshort{cnn}s utiliza o empilhamento de módulos Inception, onde convoluções de diferentes tamanhos são realizadas no mesmo módulo, especificamente convoluções de 1x1, 3x3 e 5x5. Ao final, tais convoluções são concatenadas junto ao \textit{pooling} da própria entrada, gerando a saída do módulo. 
+Diferente do \acrshort{vgg}, a família \textit{Inception}\cite{inception} de \acrshort{cnn}s utiliza o empilhamento de módulos Inception, onde convoluções de diferentes tamanhos são realizadas no mesmo módulo, especificamente convoluções de $1 \times 1$, $3 \times 3$ e $5 \times 5$. Ao final, tais convoluções são concatenadas junto ao \textit{pooling} da própria entrada, gerando a saída do módulo. 
 
-O \textit{InceptionV3}\cite{inceptionv3} fatoriza convoluções maiores em uma sequência de convoluções menores. A convolução 5x5, por exemplo, é substituída por duas convoluções 3x3, diminuindo a quantidade de parâmetros mas mantendo a expressividade das características extraídas.
+O \textit{InceptionV3}\cite{inceptionv3} fatoriza convoluções maiores em uma sequência de convoluções menores. A convolução $5 \times 5$, por exemplo, é substituída por duas convoluções $3 \times 3$, diminuindo a quantidade de parâmetros mas mantendo a expressividade das características extraídas.
 
 Outra modificação implementada no \textit{InceptionV3} foi a utilização do \textit{label smoothing}, onde a confiança do modelo é reduzida para evitar \textit{overfitting}. Isso é feito alterando a probabilidade esperada de cada classe:
 
@@ -200,7 +203,7 @@ Onde \textit{j} é a classe correta, \textit{k} é a classe sendo avaliada, $\de
 
 A característica de maior importância da \textit{DenseNet}\cite{densenet} é que sua arquitetura é baseada em blocos densos, 
 que são compostos por camadas convolucionais onde sua entrada recebe a saída de todas as camadas convolucionais anteriores a ela. 
-Os blocos densos são ligados por camadas de transição, compostas por uma camada de convolução 1x1 e uma camada de \textit{average pooling} 2x2. 
+Os blocos densos são ligados por camadas de transição, compostas por uma camada de convolução $1 \times 1$ e uma camada de \textit{average pooling} $2 \times 2$. 
 A arquitetura de uma \textit{DenseNet} simples pode ser vista na Figura \ref{fig:densenet_arch} \cite{densenet}.
 
 \begin{figure}[htb]
@@ -219,7 +222,7 @@ As convoluções separáveis em profundidades fatorizam uma convolução comum e
 
 Além disso, a arquitetura também possui dois hiperparâmetros globais, um multiplicador de largura $\alpha$ e um multiplicador de resolução $\rho$, que servem para reduzir o custo computacional da rede. O hiperparâmetro $\alpha$ serve para afinar a rede neural em cada camada por um fator $\alpha$, aplicado tanto no número de canais de entrada quanto de canais de saída. Já o hiperparâmetreo $\rho$ é aplicado na imagem de entrada e nas representações internas de cada camada, multiplicando-os por $\rho$.
 
-A arquitetura \textit{MobileNetV2}\cite{mobilenetv2} introduz blocos inversos residuais na arquitetura da rede. Este bloco aumenta a dimensionalidade da entrada através de um conjunto de convoluções 1$\times$ 1 e aplica uma convolução em profundidade em seguida, para capturar informações em cada canal expandido. Ao final, uma convolução 1x1 é aplicada para reduzir os canal de volta ao tamanho original.
+A arquitetura \textit{MobileNetV2}\cite{mobilenetv2} introduz blocos inversos residuais na arquitetura da rede. Este bloco aumenta a dimensionalidade da entrada através de um conjunto de convoluções 1$\times$1 e aplica uma convolução em profundidade em seguida, para capturar informações em cada canal expandido. Ao final, uma convolução 1$\times$1 é aplicada para reduzir os canal de volta ao tamanho original.
 
 % -----------------------
 \subsection{Visual Transformer (ViT)}

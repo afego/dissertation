@@ -1,32 +1,21 @@
 \chapter{Trabalhos Relacionados}\label{cap:trabalhos}
-Diversos estudos foram realizados sobre classificação ou detecção de inundações, seja realizando a tarefa com algoritmos de aprendizado de máquina ou redes neurais
-e utilizando diferentes fontes de dados: imagens de satélites, imagens de câmeras ou até mesmo valores númericos retirados de ferramentas de medição, como um pluviômetro por exemplo.
+Diversos estudos vêm sendo realizados na área de classificação e detecção de inundações, utilizando tanto algoritmos tradicionais de aprendizado de máquina quanto redes neurais profundas. Tais pesquisas empregam diferentes fontes de dados, incluindo imagens capturadas por satélites, imagens provenientes de câmeras fixas e, ainda, dados numéricos obtidos a partir de instrumentos de medição, como pluviômetros, entre outros.
 
-Neste capítulo, primeiramente serão apresentados trabalhos que utilizaram algoritmos de aprendizado de máquina para realizar previsões sobre alagamentos.
-Em seguida, trabalhos voltados ao uso de imagens de satélite sobre áreas alagadas serão brevemente descritos, com uma pequena seção sobre utilização de \textit{U-Net} para segmentação e 
-classificação dessas imagens.
-A última seção é reservada para trabalhos onde a classificação de imagens de alagamentos urbanos desempenha papel principal.
-Portanto, devido ao foco desta pesquisa ser a classificação dessas imagens, principalmente voltado a sistema de câmeras urbanas, 
-a última seção possui seus trabalhos discutidos com maior detalhe em comparação às seções anteriores.
-Todos os estudos em cada seção são apresentados em ordem cronológica, começando dos mais antigos.
+Neste capítulo, inicialmente serão apresentados trabalhos que empregaram algoritmos de aprendizado de máquina para prever eventos de alagamento. Em seguida, serão brevemente descritos estudos que utilizaram imagens de satélite para a análise de áreas alagadas, incluindo uma seção dedicada à aplicação de arquiteturas do tipo \textit{U-Net} para segmentação e classificação dessas imagens.
+
+Por fim, a última seção será dedicada a pesquisas cujo foco principal é a classificação de imagens relacionadas a alagamentos urbanos. Devido ao foco desta dissertação estar centrado na classificação de imagens capturadas por sistemas de câmeras urbanas, essa seção será discutida com maior profundidade em relação às anteriores.
+
+Para facilitar a compreensão da evolução do campo, os trabalhos apresentados em cada seção serão organizados em ordem cronológica, iniciando pelos mais antigos.
 % ----------------------------------------------------------
 \section{Aprendizado de Máquina}
 
-Utilizando dados do Departamento Meteorológico de Bangladesh (\textit{Bangladesh Meteorological Department}) e do Conselho de Desenvolvimento Hídrico de Bangladesh (\textit{Bangladesh Water Development
-Board}), Toufique \textit{et al.} \cite{toufique2024} treinaram quatro algoritmos de aprendizado de máquina para realizar a predição de inundações em Bangladesh, 
-onde o \text{Random Forest} \cite{randomforest}foi o melhor, com acurácia de de 85,6\%.
+Utilizando dados disponibilizados pelo Departamento Meteorológico de Bangladesh (\textit{Bangladesh Meteorological Department}) e pelo Conselho de Desenvolvimento Hídrico de Bangladesh (\textit{Bangladesh Water Development Board}), Toufique \textit{et al.} \cite{toufique2024} treinaram quatro algoritmos de aprendizado de máquina para a predição de inundações na região. Entre os modelos avaliados, o \textit{Random Forest} \cite{randomforest} apresentou o melhor desempenho, alcançando uma acurácia de 85,6\%.
 
-Jamunadevi \textit{et al.} \cite{jamunadevi2024} propuseram uma abordagem utilizando algoritmo de memória de curto longo prazo \cite{lstm} e \acrshort{cnn} 
-para prever alagamentos em um perído de um ano no estado de Tamil Nadu, na Índia, com dados de temperatura, humidade, precipitação, velocidade do ventro, luz solar e evapotranspiração,
-obtendo acurácia de 97,4\% nem relação ao alagamentos de 2024.
+Jamunadevi \textit{et al.} \cite{jamunadevi2024} propuseram uma abordagem híbrida que combinou uma rede neural recorrente do tipo memória de curto e longo prazo (LSTM) \cite{lstm} com uma rede neural convolucional (\acrshort{cnn}), visando a previsão de alagamentos ao longo de um período de um ano no estado de Tamil Nadu, Índia. Os dados utilizados para treinamento englobaram variáveis meteorológicas e ambientais, tais como temperatura, umidade, precipitação, velocidade do vento, radiação solar e evapotranspiração. O modelo desenvolvido obteve uma acurácia de 97,4\% na previsão dos eventos de alagamento ocorridos em 2024.
 
-Vimala \textit{et al.} \cite{vimala2024} utilizaram 22 indicadores para realizar predição de alagamento com 6 algoritmos de aprendizado supervisionado, incluindo o \textit{Random Forest}.
-Nos resultados apresentados, a Regressão Logística \cite{cramerlogisticregression} foi o melhor modelo, com acurácia de 99,85\%, enquanto o \textit{Random Forest} obteve acurácia de 89,37\%.
+Vimala \textit{et al.} \cite{vimala2024} empregaram um conjunto de 22 indicadores ambientais para realizar a predição de alagamentos, utilizando seis algoritmos de aprendizado supervisionado, incluindo o \textit{Random Forest}. Entre os modelos testados, a Regressão Logística \cite{cramerlogisticregression} foi o que apresentou o melhor desempenho, com uma acurácia de 99,85\%, enquanto o \textit{Random Forest} atingiu uma acurácia de 89,37\%.
 
-Shah \textit{et al.} \cite{shah2024} usaram \textit{Random Forest} e \textit{XGBoost} \cite{chenxgboost} para criar um mapa de suscetibilidade a inundações da cidade de Chennai, no estado de Tamil Nadu.
-Os autores usaram 6 métricas de três fontes diferentes para treinar os algoritmos, onde o \textit{XGBoost} a melhor acurácia de 70\%.
-
-%missing: Urban Pluvial Flood Prediction Using Machine Learning Models
+Shah \textit{et al.} \cite{shah2024} utilizaram os algoritmos \textit{Random Forest} e \textit{XGBoost} \cite{chenxgboost} para gerar um mapa de suscetibilidade a inundações da cidade de Chennai, também no estado de Tamil Nadu. Os autores empregaram seis métricas provenientes de três fontes distintas para treinar os modelos, nos quais o \textit{XGBoost} apresentou a melhor acurácia, alcançando 70\%.
 
 % ----------------------------------------------------------
 \section{Imagens de Satélite}
@@ -37,18 +26,16 @@ Para isso, treinaram um \textit{Random Forest} sazonalmente em conjuntos de imag
 Siddique \textit{et al.} \cite{siddique2023} propuseram uma abordagem integrada utilizando \textit{Random Forest}, \acrfull{knn}\cite{knn1967} e \textit{k-means}\cite{kmeans2023} 
 para classificar imagens do satélite Sentinel-1 \cite{sentinel1} do estado da Índia de Uttar Pradesh. Obtendo acurácia de 97,0\% para a cidade de Basti e 93,8\% para a cidade de Ayodhya, ambas no estado de Uttar Pradesh.
 
-% Barkhade \textit{et al.} \cite{barkhade2023} discutem a implementação de
-
 Reddy e Vimal \cite{reddy2024} classificaram 400 imagens de satélites, obtendo resultados de 92,72\% de acurácia com análise discriminante linear \cite{lda} e 95,05\% com AlexNet \cite{alexnet}.
 
 Cao \textit{et al.} \cite{cao2024} utilizaram uma \acrshort{cnn} simples, proposta pelos autores, onde a saída da camada completamente conectada alimenta um 
-classificador de Máquina de Vetores de Suporte (\acrshort{svm}, do inglês \acrlong{svm}) \cite{svm} para classificar o pântano de Qilihai, na China. Obtiveram acurácia de 0,903 no conjunto de dados,
+classificador de Máquina de Vetores de Suporte (\acrshort{svm}, do inglês \acrlong{svm}) \cite{svm} para classificar o pântano de Qilihai, na China. Obtiveram acurácia de 90,3\% no conjunto de dados,
 que foi montado através de imagens do Sentinel-1 e Sentinel-2.
 
 Myin e Thein \cite{myin2024} aplicaram um \textit{Random Forest} em 1000 imagens do Sentinel-1 da região de Bago, em Myanmar, com acurácia de 93,18\%. 
 
 Huang \textit{et al.} \cite{huang2024} projetaram um modelo chamado \textit{WaterDetectionNet} (WDNet) para mapear alagamentos, 
-usando imagens de radar de abertura sintética \cite{sar} do Sentinel-1 sobre lago de Poyang, na China. O modelo WDNet com módulo de atenção própria atingiu acurácia de 0,987.
+usando imagens de radar de abertura sintética \cite{sar} do Sentinel-1 sobre lago de Poyang, na China. O modelo WDNet com módulo de atenção própria atingiu acurácia de 98,7\%.
 
 Bouchelkia \textit{et al.} \cite{bouchelkia2024} propuseram um abordagem para dectectar diferenças em terrenos pós-inundações, 
 com pares de imagens do Sentinel-2 antes e depois da ocorrência de inundações na cidade de Derna na Líbia. 
@@ -68,7 +55,7 @@ Alhady \textit{et al.} \cite{alhady2024} compararam a performance do \textit{U-N
 Chandram \textit{et al.} \cite{chandran2024} propuseram um sistema de detecção de alagamentos baseado no \text{U-Net} com área sobre união de 0,85.
 
 Pech-May \textit{et al.} \cite{pech-may2024} classificaram imagens do Sentinel-1 do estado mexicano de Tabasco, utilizando o \textit{U-Net}. Os autores compararam a acurácia de área sobre união
-treinando em diferentes épocas, onde o modelo treinado em 200 épocas foi o melhor, com acurácia de 94,31\% e área sobre união de 73,02\%.
+treinando em diferentes épocas, onde o modelo treinado em 200 épocas foi o melhor, com acurácia de 94,31\% e área sobre união de 0,730.
 % ----------------------------------------------------------
 \section{Alagamento em áreas urbanas}\label{sec:trabalhos_alagamento}
 %A Hybrid Machine Learning Approach for Classifying Aerial Images of Flood-Hit Areas
@@ -78,13 +65,6 @@ Na classificação eles usaram uma abordagem híbrida, feita através de uma \ac
 Usando um conjunto de dados de 200 imagens, sendo 100 para cada classe, a abordagem conseguiu acurácia média de 92\%.
 Apesar da abordagem interessante de utilizar \Acrshort{bovw} para classificação com aprendizado de máquina clássico, os autores somente avaliaram \acrshort{svm} com diferentes \textit{kernels},
 sem comparar com outros algoritmos de aprendizado de máquina. Além disso, o modelo não só foi testado em somente um conjunto de dados, como o conjunto de dados usado não foi disponibilizado.
-
-%As características mais importantes passam por um processo de clusterização, gerando um histograma que representa um grupo (índex) de palavras visuais. De modo que cada imagem seja representada por um histograma, que é então utilizado para o treinamento do \acrshort{svm}. 
-
-%(\textit{\textbf{André}  mesmo 
-%\textbf{paragrafo = mesmo assunto}
-%se não fica muito confuso ou você vai precisar ficar referindo o tempo todo , certo?  o.k.!)}
-
 
 %Detecting floodwater on roadways from image data with handcrafted features and deep transfer learning
 Sazara \textit{et al.} \cite{sazara2019} abordaram o problema de classificação de inundação (ou não em imagens) utilizando a saída de um extrator de características para treinar modelos de aprendizado de máquina diferentes. 
@@ -145,7 +125,7 @@ Assim como também não houve comparação com outros conjuntos de dados.
 Islam \textit{et al.}\cite{ISLAM2023100225} propuseram uma abordagem combinando \acrshort{cnn} e algoritmos de ordenação para classificar imagens de drones em três diferentes graus de severidade. 
 O sistema criado detecta o nível de alagamento e calcula a distância do drone até a área afetada, 
 gerando então um valor ponderado representando a prioridade de atenção do drone à cada área detectada, estes valores são ordenados pelo algoritmo de ordenação. 
-Com 1011 imagens divididas entre treino, teste e validação, os modelos testados DensetNet e InceptionV3 conseguiram acurácia de 0,81 e 0,83, respectivamente.
+Com 1011 imagens divididas entre treino, teste e validação, os modelos testados \textit{DenseNet} e \textit{InceptionV3} conseguiram acurácia de 81\% e 83\%, respectivamente.
 Como reconhecido pelos próprios autores, mais estudos sobre a viabilidade do método descrito precisam ser feitos, visto que não houve comparação com outros conjuntos de dados.
 
 %Enhanced Flood Detection on Highways: A Comparative Study of MobileNet and VGG16 CNN Models Based on CCTV Images
@@ -201,67 +181,3 @@ A Tabela \ref{tab:relatedworks} mostra um resumo da literatura sobre classifica�
     }
     \end{center}
 \end{table}
-
-% Please add the following required packages to your document preamble:
-% \usepackage{graphicx}
-% \begin{table}[tb]
-% \caption{\label{tab:relatedworks} Resumo dos Trabalhos Relacionados}
-% \begin{center}
-% \resizebox{\columnwidth}{!}{%
-% \begin{tabular}{lcccc}
-% \toprule
-% Trabalho        & \begin{tabular}[c]{@{}c@{}}Extração de \\ Característica\end{tabular}      & Classificação                                                                                                 & \begin{tabular}[c]{@{}c@{}}Tamanho \\ do\\ Dataset\end{tabular} & Acurácia \\
-% \midrule
-% Akshya          & BoVW                                                                       & k-means e SVM                                                                                                 & 200                                                             & 0,92     \\
-% \midrule
-% Sazara et al.   & VGG16                                                                      & Regressão Logística                                                                                           & 491                                                             & 0,94     \\
-% \midrule
-% Jony et al.     & \begin{tabular}[c]{@{}c@{}}InceptionV3, \\ Xception, \\ VGG16\end{tabular} & CNN própria                                                                                                   & 6600                                                            & 0,93     \\
-% \midrule
-% Vineeth e Neeba & Não                                                                        & MobileNet                                                                                                     & 5000                                                            & 0,94     \\
-% \midrule
-% Piedad et al.   & Não                                                                        & CNN própria                                                                                                   & 30000                                                           & 0,81     \\
-% \midrule
-% Pally e Samadi  & Não                                                                        & \begin{tabular}[c]{@{}c@{}}Mask RCNN, \\ Fast RCNN, \\ SSD MobileNet, \\ EfficientDet, \\ YOLOv3\end{tabular} & 9000                                                            & 0,71     \\
-% \midrule
-% Sghaier et al.  & Não                                                                        & CNN própria                                                                                                   & 2636                                                            & 0,99     \\
-% \midrule
-% Agung et al.    & Não                                                                        & MobileNet                                                                                                     & 2000                                                            & 0,95     \\
-% \midrule
-% Islam et al.    & Não                                                                        & DenseNet e InceptionV3                                                                                        & 1011                                                            & 0,83 \\
-% \bottomrule
-% \end{tabular}%
-% }
-% \end{center}
-% \end{table}
-
-% \begin{table}[tb]
-% \caption{\label{tab:relatedworks} Resumo dos Trabalhos Relacionados- Inserir numero de imagens}
-% \begin{center}
-% \resizebox{\columnwidth}{!}{%
-% \begin{tabular}{lll}
-% \toprule
-% Trabalho        & Extração de Característica                                              & Classificação                                                                                           \\
-% \midrule
-% Akshya e Priyadarsini          & BoVW                                                                    & k-means e SVM                                                                                           \\
-% \midrule
-% Sazara et al.   & VGG16                                                                   & Regressão Logística                                                                                     \\
-% \midrule
-% Jony et al.     & \begin{tabular}[c]{@{}l@{}}InceptionV3, \\ Xception, VGG16\end{tabular} & CNN própria                                                                                             \\
-% \midrule
-% Vineeth e Neeba & Não                                                                     & MobileNet                                                                                               \\
-% \midrule
-% Piedad et al.   & Não                                                                     & CNN própria                                                                                             \\
-% \midrule
-% Pally e Samadi  & Não                                                                     & \begin{tabular}[c]{@{}l@{}}Mask RCNN, Fast RCNN, \\ SSD MobileNet, \\ EfficientDet, YOLOv3\end{tabular} \\
-% \midrule
-% Sghaier et al.  & Não                                                                     & CNN própria                                                                                             \\
-% \midrule
-% Agung et al.    & Não                                                                     & MobileNet Modificada                                                                                              \\
-% \midrule
-% Islam et al.    & Não                                                                     & DenseNet e InceptionV3 \\
-% \bottomrule
-% \end{tabular}%
-% }
-% \end{center}
-% \end{table}

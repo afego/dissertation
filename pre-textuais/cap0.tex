@@ -39,7 +39,7 @@
 \begin{figure}[!ht]
    \centering
    \includegraphics[width=1\linewidth]{capitulos/figuras/ficha_catalografica.png}
-   \caption{Local da ficha catalográfica}
+   %\caption{Local da ficha catalográfica}
 \end{figure}
 
 \cleardoublepage
@@ -75,7 +75,7 @@ Dissertação de Mestrado apresentada ao Programa de P\'{o}s-Gradua\c{c}\~{a}o e
 \end{flushright}
 \vspace{1.0 cm}
 \noindent
-Aprovada em <MES> de 2025. \\
+Aprovada em MARÇO de 2025. \\
 \begin{flushright}
  % \parbox{11cm}
   {
@@ -144,15 +144,15 @@ Ao Centro de Operações do Rio pelo acesso as câmeras da cidade do Rio de Jane
 %Elemento obrigatório, constituído de uma sequência de frases concisas e objetivas e não de uma simples enumeração de tópicos, não ultrapassando 500 palavras ABNT NBR 6028:2003.
 
 Este trabalho teve como objetivo desenvolver uma abordagem inicial para a classificação automática de alagamentos da cidade do Rio de Janeiro.
-Para isso, este trabalho primeiramente criou um conjunto de dados original composto de 4620 imagens separadas em 78\% para treino e 22\% para validação.
-Este conjunto de dados foi montado com imagens de câmeras de ruas da cidade do Rio ao longo de diferentes meses, em diferentes horas do dia e em diferentes níveis de alagamento.
-Após o conjunto de dados ser devidamente analisado e montado de forma equilibrada, cinco arquiteturas de redes neurais foram avaliadas nesse conjunto de dados. 
+Para isso, primeiramente foi criado um conjunto de dados original, o \acrfull{rfd}, composto de 4620 imagens separadas em 78\% para treino e 22\% para validação.
+Este conjunto de dados foi montado com imagens de câmeras de ruas da cidade do Rio ao longo de diferentes meses, em diferentes horas do dia e com diversos níveis de alagamento.
+Após o conjunto de dados ser devidamente analisado e montado de forma equilibrada, cinco arquiteturas de redes neurais foram utilizadas nesse conjunto de dados. 
 Essas arquiteturas foram escolhidas de acordo com trabalhos da literatura com temática relacionada ao problema abordado.
 Após o treinamento das arquiteturas \acrshort{vgg}-19, \textit{Inception}, \textit{DenseNet}, \textit{MobileNetV2}, e \textit{Visual Transformer} para o problema de classificação de imagem, 
-o \textit{Visual Transformer} obteve melhor resultado e também foi analisado com diferentes níveis de iluminação e três diferentes otimizadores.
+o \textit{Visual Transformer} obteve melhor resultado. Este modelo, o \textit{Visual Transformer}, foi analisado com diferentes níveis de iluminação e três diferentes otimizadores.
 Também foi investigado se o aumento na quantidade de imagens de treino traria ganhos compensadores. 
 O desempenho dos resultados foi comparado com outros dois conjuntos de dados.
-Ao final, o \textit{Visual Transformer} foi melhor modelo com com acurácia de 82,6\% no conjunto de dados original.
+Considerando todos os experimentos feitos, o \textit{Visual Transformer} foi o melhor modelo com acurácia de 82,6\% no conjunto de dados original.
 O código usado para treino e avaliação dos modelos, assim como o conjunto de dados original criado estão disponíveis \href{https://github.com/afego/computervision}{neste repositório de GitHub}: https://github.com/afego/computervision.
 
 {\hspace{-8mm} \bf{Palavras-chave}}: Visão Computacional, Rede Neural Convolucional, \textit{Visual Transformer}, Classificação, Alagamento.
@@ -169,14 +169,14 @@ O código usado para treino e avaliação dos modelos, assim como o conjunto de 
 
 This work aimed to develop an initial approach for the automatic classification of floods in the city of Rio de Janeiro.
 To this end, this work first created an original dataset composed of 4620 images separated into 78\% for training and 22\% for validation.
-This dataset was assembled with images from street cameras in the city of Rio over different months, at different times of the day and at different flood levels.
+This dataset was assembled with images from street cameras in the city of Rio over different months, at different times of the day and at various flood levels.
 After the dataset was properly analyzed and assembled in a balanced way, five neural network architectures were evaluated on this dataset.
 These architectures were chosen according to works in the literature with a theme related to the problem addressed.
 After training the \acrshort{vgg}-19, \textit{Inception}, \textit{DenseNet}, \textit{MobileNetV2}, and \textit{Visual Transformer} architectures for the image classification problem,
-the \textit{Visual Transformer} obtained the best result and was also analyzed with different lighting levels and three different optimizers.
+the \textit{Visual Transformer} obtained the best result. The \textit{Visual Transformer} was then also analyzed with different lighting levels and three different optimizers.
 It was also investigated whether increasing the number of training images would bring compensating gains.
 The performance of the results was compared with two other datasets.
-In the end, the \textit{Visual Transformer} was the best model with an accuracy of 82.6\% on the original dataset.
+Considering all experiments done, the \textit{Visual Transformer} was the best model with an accuracy of 82.6\% on the original dataset.
 The code used for training and evaluating the models, as well as the original dataset created are available \href{https://github.com/afego/computervision}{in this GitHub repository}: https://github.com/afego/computervision.
 
 {\hspace{-8mm} \bf{Keywords}}: Computer Vision, Convolutional Neural Network, \textit{Visual Transformer}, Classification, Flooding

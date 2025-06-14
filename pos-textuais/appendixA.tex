@@ -14,19 +14,34 @@
 %     \label{tab:apendA}
 % \end{figure}
 
-\begin{longtable}{|c|c|c|}
+% \begin{longtable}{|c|c|c|}
+%     \hline
+%     \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1} \\  
+%     \hline
+%     \endfirsthead
+    
+%     \hline
+%     \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1} \\  
+%     \hline
+%     \endhead
+    
+%     \csvreader[head to column names]{dados/appendixa.csv}{}%
+%     {\csvcoli & \csvcolii & \csvcoliii \\}%
+% \end{longtable}
+
+\begin{longtable}{|c|c|c|c|c|c|}
     \hline
-    \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1} \\  
+    \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1} & \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1}\\  
     \hline
     \endfirsthead
     
     \hline
-    \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1} \\  
+    \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1} & \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1}\\  
     \hline
     \endhead
     
-    \csvreader[head to column names]{dados/appendixa.csv}{}%
-    {\csvcoli & \csvcolii & \csvcoliii \\}%
+    \csvreader[head to column names]{dados/appendixa_new.csv}{}%
+    {\csvcoli & \csvcolii & \csvcoliii & \csvcoliv & \csvcolv & \csvcolvi\\}%
 \end{longtable}
 
 % Este apêndice apresenta informações complementares.

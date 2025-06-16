@@ -14,6 +14,7 @@ O conjunto de dados consiste em imagens de 77 câmeras diferentes da cidade do R
 Neste conjunto, cada câmera possui 30 imagens para cada uma das classes deste problema de classificação binário.
 Ou seja, o conjunto de dados é formado por 60 imagens de cada câmera, totalizando 4.620 imagens.
 Do total de 77 câmeras, 60 foram escolhidas para compor o conjunto de treino e 17 câmeras para validação, ou seja, 78\% das câmeras compõem o conjunto de treino e 22\% o conjunto de validação.
+Esses 3 conjuntos estão disponíveis em \href{https://doi.org/10.5281/zenodo.15670835}{10.5281/zenodo.15670835}.
 
 Este trabalho frequentemente se refere ao conjunto de dados usado pelo número de câmeras, em vez de descrever diretamente o número de imagens.
 Isso é feito propositalmente, visto que foi decidido não utilizar imagens da mesma câmera em treino e em validação, para evitar qualquer tipo de viés em sua validação.
@@ -88,7 +89,7 @@ As Figuras \ref{fig:class0count} e \ref{fig:class1count} apresentam, respectivam
 A Figura \ref{fig:totalcount} exibe a distribuição total de imagens por câmera, considerando ambas as classes conjuntamente.
 
 Devido à grande quantidade de câmeras, seus identificadores (ou códigos) não são exibidos no eixo horizontal dessas figuras.
-Entretanto, a Tabela apresentada no Apêndice \ref{apendA} relaciona o identificador de cada câmera e sua respectiva quantidade de imagens para cada classe.
+Entretanto, a Tabela \ref{tab:appendixA} apresentada no Apêndice \ref{apendA} relaciona o identificador de cada câmera e sua respectiva quantidade de imagens para cada classe.
 
 Essas figuras representam o conjunto de dados original, composto por imagens capturadas de 472 câmeras do sistema do \acrshort{cor}, sem qualquer balanceamento prévio entre as classes.
 Nas figuras, a correspondência entre as classes (\textbf{alagadas} ou \textbf{não alagadas}) e as cores (azul e vermelho) é utilizada para distinguir visualmente a quantidade de imagens de cada classe associada a cada câmera, conforme as barras representadas no eixo horizontal dos histogramas de distribuição.
@@ -139,7 +140,7 @@ Portanto, as arquiteturas de redes neurais convolucionais foram treinadas utiliz
 
 Adicionalmente, o conjunto de dados excedente — composto pelas câmeras e imagens que não foram selecionadas para os conjuntos de treinamento e validação — foi utilizado para a criação de um conjunto de teste. Esse conjunto de teste foi construído por meio da seleção aleatória de 150 imagens de cada classe, totalizando 300 imagens. Diferentemente do critério adotado para treinamento e validação, na formação do conjunto de teste não houve restrição quanto à representação equitativa de cada câmera, visto que seu objetivo principal é avaliar a capacidade de generalização dos modelos para dados não vistos e com maior variabilidade.
 
-Com isso, o conjunto de dados completo utilizado neste trabalho é composto por 4920 imagens, sendo 4620 destinadas ao treinamento e validação e 300 reservadas para teste.
+Com isso, o conjunto de dados completo utilizado neste trabalho é composto por 4920 imagens, sendo 4620 destinadas ao treinamento e validação e 300 reservadas para teste, disponível em \href{https://doi.org/10.5281/zenodo.15670835}{10.5281/zenodo.15670835}.
 
 Por fim, após a primeira etapa de avaliação dos modelos baseados em \acrshort{cnn}s, foi realizada uma reanálise da quantidade de imagens por câmera, visando avaliar se diferentes quantidades de imagens poderiam impactar significativamente os índices de desempenho dos modelos — tais como acurácia, precisão, revocação e F1-Score. Esse estudo adicional é detalhado na Seção \ref{sec:cameraquantity}, onde são discutidos os impactos da variação na quantidade de imagens por câmera sobre o desempenho dos modelos.
 % -----------------------

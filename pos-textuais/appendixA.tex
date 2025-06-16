@@ -1,35 +1,28 @@
 \chapter{Tabela de quantidade de images de cada classe para cada câmera identificada pelo seu código}
 \label{apendA}
 
-% \begin{table}[h]
-%     \centering
-%     %\caption{Exemplo de Tabela CSV}
-%     \csvautotabular{dados/appendixa.csv}
-%     \label{tab:apendA}
-% \end{table}
+% \begin{longtable}{|c|c|c|c|c|c|}
+%     \caption{Quantidade de images de cada classe para cada câmera identificada pelo seu código}
+%     \label{tab:appendixA}\\
 
-% \begin{figure}[htb]
-%     \centerline{\includegraphics[width=1\linewidth]{images/imagespercameratable.png}}
-%     %\caption{Quantidade de imagens de normalidade por câmera disponível.}
-%     \label{tab:apendA}
-% \end{figure}
-
-% \begin{longtable}{|c|c|c|}
 %     \hline
-%     \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1} \\  
+%     \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1} & \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1}\\  
 %     \hline
 %     \endfirsthead
     
 %     \hline
-%     \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1} \\  
+%     \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1} & \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1}\\  
 %     \hline
 %     \endhead
     
-%     \csvreader[head to column names]{dados/appendixa.csv}{}%
-%     {\csvcoli & \csvcolii & \csvcoliii \\}%
+%     \csvreader[head to column names]{dados/appendixa_new.csv}{}%
+%     {\csvcoli & \csvcolii & \csvcoliii & \csvcoliv & \csvcolv & \csvcolvi\\}%
 % \end{longtable}
 
-\begin{longtable}{|c|c|c|c|c|c|}
+\begin{longtable}{ccc|ccc}
+    \caption{Quantidade de images de cada classe para cada câmera identificada pelo seu código}
+    \label{tab:appendixA}\\
+
     \hline
     \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1} & \textbf{Câmera} & \textbf{Classe 0} & \textbf{Classe 1}\\  
     \hline
@@ -41,7 +34,8 @@
     \endhead
     
     \csvreader[head to column names]{dados/appendixa_new.csv}{}%
-    {\csvcoli & \csvcolii & \csvcoliii & \csvcoliv & \csvcolv & \csvcolvi\\}%
+    {\csvcoli & \csvcolii & \csvcoliii & \csvcoliv & \csvcolv & \csvcolvi\\}\\%
+    \hline
 \end{longtable}
 
 % Este apêndice apresenta informações complementares.
